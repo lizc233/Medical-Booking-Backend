@@ -8,15 +8,15 @@ spring:
     allow-circular-references: true
   datasource:
     druid:
-      driver-class-name: ${sky.datasource.driver-class-name}
-      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${sky.datasource.username}
-      password: ${sky.datasource.password}
+      driver-class-name: ${medical.datasource.driver-class-name}
+      url: jdbc:mysql://${medical.datasource.host}:${medical.datasource.port}/${medical.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${medical.datasource.username}
+      password: ${medical.datasource.password}
   redis:
-    host: ${sky.redis.host}
-    port: ${sky.redis.port}
-    password: ${sky.redis.password}
-    database: ${sky.redis.database}
+    host: ${medical.redis.host}
+    port: ${medical.redis.port}
+    password: ${medical.redis.password}
+    database: ${medical.redis.database}
 
 mybatis:
   #mapper配置文件
@@ -29,12 +29,12 @@ mybatis:
 logging:
   level:
     com:
-      sky:
+      medical:
         mapper: debug
         service: info
         controller: info
 
-sky:
+medical:
   jwt:
     # 设置jwt签名加密时使用的秘钥
     admin-secret-key: itcast
@@ -46,21 +46,26 @@ sky:
     user-ttl: 7200000
     user-token-name: authentication
   alioss:
-    endpoint: ${sky.alioss.endpoint}
-    access-key-id: ${sky.alioss.access-key-id}
-    access-key-secret: ${sky.alioss.access-key-secret}
-    bucket-name: ${sky.alioss.bucket-name}
+    endpoint: ${medical.alioss.endpoint}
+    access-key-id: ${medical.alioss.access-key-id}
+    access-key-secret: ${medical.alioss.access-key-secret}
+    bucket-name: ${medical.alioss.bucket-name}
   wechat:
-    appid: ${sky.wechat.appid}
-    secret: ${sky.wechat.secret}
-    mchid: ${sky.wechat.mchid}
-    mchSerialNo: ${sky.wechat.mchSerialNo}
-    privateKeyFilePath: ${sky.wechat.privateKeyFilePath}
-    apiV3Key: ${sky.wechat.apiV3Key}
-    weChatPayCertFilePath: ${sky.wechat.weChatPayCertFilePath}
-    notifyUrl: ${sky.wechat.notifyUrl}
-    refundNotifyUrl: ${sky.wechat.refundNotifyUrl}
+    appid: ${medical.wechat.appid}
+    secret: ${medical.wechat.secret}
+    mchid: ${medical.wechat.mchid}
+    mchSerialNo: ${medical.wechat.mchSerialNo}
+    privateKeyFilePath: ${medical.wechat.privateKeyFilePath}
+    apiV3Key: ${medical.wechat.apiV3Key}
+    weChatPayCertFilePath: ${medical.wechat.weChatPayCertFilePath}
+    notifyUrl: ${medical.wechat.notifyUrl}
+    refundNotifyUrl: ${medical.wechat.refundNotifyUrl}
   shop:
     address: 湖北省武汉市洪山区徐东大街18号
   baidu:
     ak: EFEEFFEFEFE
+    # AI Agent 大模型配置 (用于智能导诊)
+  ai:
+    deepseek:
+      api-key: ${medical.ai.deepseek.api-key}  # 开源占位符
+      api-url: ${medical.ai.deepseek.api-url}

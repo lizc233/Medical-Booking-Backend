@@ -7,6 +7,7 @@ import com.leo.medical.dto.DepartmentPageQueryDTO;
 import com.leo.medical.entity.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -46,4 +47,7 @@ public interface DepartmentMapper {
      * @return
      */
     List<Department> list(Integer type);
+
+
+    Department getByNameAndDepartemnt(@Param("targetDeptName") String targetDeptName);
 }

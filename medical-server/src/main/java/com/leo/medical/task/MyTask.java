@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 自定义定时任务类
  */
-@Component
+//@Component
 @Slf4j
 public class MyTask {
 

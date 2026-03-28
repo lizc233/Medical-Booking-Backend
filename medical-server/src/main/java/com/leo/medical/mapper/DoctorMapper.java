@@ -8,6 +8,7 @@ import com.leo.medical.enumeration.OperationType;
 import com.leo.medical.vo.DoctorVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -76,4 +77,12 @@ public interface DoctorMapper {
      * @return
      */
     Integer countByMap(Map map);
+
+    /**
+     * 根据科室id查询医生
+     * @param id
+     * @return
+     */
+    @Select("select * from doctor where department_id = #{id} ")
+    List<Doctor> getByDeptId(Long id);
 }

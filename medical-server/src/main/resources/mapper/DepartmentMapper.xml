@@ -60,4 +60,13 @@
         </if>
         order by sort asc,create_time desc
     </select>
+    <select id="getByNameAndDepartemnt" resultType="com.leo.medical.entity.Department">
+        select * from department
+        <where>
+            <if test="targetDeptName != null and targetDeptName != ''">
+                and name like concat('%',#{targetDeptName},'%')
+            </if>
+        </where>
+        limit 1
+    </select>
 </mapper>

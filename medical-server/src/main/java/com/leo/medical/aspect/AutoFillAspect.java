@@ -25,9 +25,9 @@ public class AutoFillAspect {
 
     /**
      * 切入点
-     * com.sky.mapper包下包含AutoFill注解的所有类和方法
+     * com.medical.mapper包下包含AutoFill注解的所有类和方法
      */
-    @Pointcut("execution(* com.sky.mapper.*.*(..)) && @annotation(com.leo.medical.annotation.AutoFill)")
+    @Pointcut("execution(* com.medical.mapper.*.*(..)) && @annotation(com.leo.medical.annotation.AutoFill)")
     public void autoFillPointCut() {
 
     }

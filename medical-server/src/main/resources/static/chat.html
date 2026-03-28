@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>AI 智能问诊助手</title>
+        <style>
+            body { font-family: 'PingFang SC', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding-top: 50px; }
+            .chat-container { width: 400px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 20px; }
+            .chat-box { height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; margin-bottom: 15px; background: #fafafa; }
+            .msg { margin-bottom: 10px; padding: 10px; border-radius: 8px; max-width: 80%; line-height: 1.5; font-size: 14px; }
+            .msg.user { background: #007bff; color: white; margin-left: auto; }
+            .msg.ai { background: #e9ecef; color: #333; }
+            .input-area { display: flex; gap: 10px; }
+            input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+            button { background: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; }
+            button:hover { background: #218838; }
+            .doctor-card { background: #fff; border: 1px solid #ddd; padding: 8px; margin-top: 8px; border-radius: 4px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+
+        <div class="chat-container">
+            <h3 style="text-align: center; color: #333;">🤖 康健医疗 AI 导诊</h3>
+            <div class="chat-box" id="chatBox">
+                <div class="msg ai">您好！我是 AI 导诊助手。请描述您的症状（如：一直咳嗽，喉咙痛），我将为您匹配最合适的科室和医生。</div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="symptomInput" placeholder="请输入您的症状...">
+                <button onclick="sendMsg()">发送</button>
+            </div>
+        </div>
+
+        <script>
+            function sendMsg() {
+            const input = document.getElementById('symptomInput');
+            const chatBox = document.getElementById('chatBox');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // 显示用户消息
+            chatBox.innerHTML += `<div class="msg user">${text}</div>`;
+            input.value = '';
+            chatBox.innerHTML += `<div class="msg ai" id="loading">思考中，正在检索科室信息...</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 请求你刚才写的后端接口
+            fetch('/ai/triage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain; charset=UTF-8' },
+            body: text
+            })
+            .then(res => res.json())
+            .then(res => {
+            document.getElementById('loading').remove();
+            if(res.code === 1) {
+            let data = res.data;
+            let reply = `<b>建议科室：${data.recommendedDepartment}</b><br>原因：${data.reason}<br><hr><b>今日推荐出诊专家：</b>`;
+
+            if(data.recommendedDoctors && data.recommendedDoctors.length > 0) {
+            data.recommendedDoctors.forEach(doc => {
+            reply += `<div class="doctor-card">👨‍⚕️ <b>${doc.name}</b> (${doc.title})<br>特长：${doc.specialTags || '暂无'}</div>`;
+            });
+            } else {
+            reply += `<br>该科室今日暂无专家出诊。`;
+            }
+            chatBox.innerHTML += `<div class="msg ai">${reply}</div>`;
+            } else {
+            chatBox.innerHTML += `<div class="msg ai" style="color:red;">系统开小差了，请稍后再试。</div>`;
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(err => {
+            document.getElementById('loading').remove();
+            chatBox.innerHTML += `<div class="msg ai" style="color:red;">网络请求失败！</div>`;
+            });
+            }
+        </script>
+
+    </body>
+</html>

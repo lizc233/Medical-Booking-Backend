@@ -10,12 +10,12 @@ import com.leo.medical.context.BaseContext;
 import com.leo.medical.dto.*;
 import com.leo.medical.entity.*;
 import com.leo.medical.mapper.*;
-//import com.sky.dto.*;
-//import com.sky.entity.*;
+//import com.medical.dto.*;
+//import com.medical.entity.*;
 import com.leo.medical.exception.AddressBookBusinessException;
 import com.leo.medical.exception.OrderBusinessException;
 import com.leo.medical.exception.ShoppingCartBusinessException;
-//import com.sky.mapper.*;
+//import com.medical.mapper.*;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.service.OrderService;
 import com.leo.medical.utils.HttpClientUtil;
@@ -60,10 +60,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private WeChatPayUtil weChatPayUtil;
 
-    @Value("${sky.shop.address}")
+    @Value("${medical.shop.address}")
     private String shopAddress;
 
-    @Value("${sky.baidu.ak}")
+    @Value("${medical.baidu.ak}")
     private String ak;
 
     @Autowired
