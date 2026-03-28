@@ -64,11 +64,11 @@ public interface DoctorMapper {
     List<Doctor> list(Doctor doctor);
 
     /**
-     * 根据套餐id查询医生
+     * 根据医疗体验套餐id查询医生
      * @param id
      * @return
      */
-    List<Doctor> getBySetmealId(Long id);
+    List<Doctor> getByCheckupPackageId(Long id);
 
     /**
      * 根据条件统计医生数量

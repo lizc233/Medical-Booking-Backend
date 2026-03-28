@@ -8,12 +8,12 @@ import com.leo.medical.dto.DoctorDTO;
 import com.leo.medical.dto.DoctorPageQueryDTO;
 import com.leo.medical.entity.Doctor;
 import com.leo.medical.entity.SpecialTag;
-import com.leo.medical.entity.Setmeal;
+import com.leo.medical.entity.CheckupPackage;
 import com.leo.medical.exception.DeletionNotAllowedException;
 import com.leo.medical.mapper.SpecialTagMapper;
 import com.leo.medical.mapper.DoctorMapper;
-import com.leo.medical.mapper.SetmealDoctorMapper;
-import com.leo.medical.mapper.SetmealMapper;
+import com.leo.medical.mapper.CheckupPackageDoctorMapper;
+import com.leo.medical.mapper.CheckupPackageMapper;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.service.DoctorService;
 import com.leo.medical.vo.DoctorVO;
@@ -35,10 +35,10 @@ public class DoctorServiceImpl implements DoctorService {
     private SpecialTagMapper specialTagMapper;
 
     @Autowired
-    private SetmealDoctorMapper checkup_packageDoctorMapper;
+    private CheckupPackageDoctorMapper checkup_packageDoctorMapper;
 
     @Autowired
-    private SetmealMapper checkup_packageMapper;
+    private CheckupPackageMapper checkup_packageMapper;
 
     /**
      * 新增医生
@@ -83,19 +83,19 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     @Transactional
     public void deleteBatch(List<Long> ids) {
-//        判断当前医生是否能够删除---是否存在起售中的医生？？
+//        判断当前医生是否能够删除---是否存在在岗中的医生？？
         ids.forEach(id->{
             Doctor doctor = doctorMapper.getById(id);
             if (doctor.getStatus() == StatusConstant.ENABLE) {
-//                当前医生处于起售中，不能删除
+//                当前医生处于在岗中，不能删除
                 throw new DeletionNotAllowedException(MessageConstant.DOCTOR_ON_SALE);
             }
         });
 
-//        判断当前医生是否能够删除---是否被套餐关联了？？
-        List<Long> checkup_packageIds = checkup_packageDoctorMapper.getSetmealIdsByDoctorIds(ids);
+//        判断当前医生是否能够删除---是否被医疗体验套餐关联了？？
+        List<Long> checkup_packageIds = checkup_packageDoctorMapper.getCheckupPackageIdsByDoctorIds(ids);
         if (checkup_packageIds != null && checkup_packageIds.size() > 0) {
-//            当前医生被套餐关联了，不能删除
+//            当前医生被医疗体验套餐关联了，不能删除
             throw new DeletionNotAllowedException(MessageConstant.DOCTOR_BE_RELATED_BY_SETMEAL);
         }
 
@@ -196,7 +196,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     /**
-     * 医生起售停售
+     * 医生在岗离岗
      * @param status
      * @param id
      */
@@ -210,14 +210,14 @@ public class DoctorServiceImpl implements DoctorService {
         doctorMapper.update(doctor);
 
         if (status == StatusConstant.DISABLE) {
-            // 如果是停售操作，还需要将包含当前医生的套餐也停售
+            // 如果是离岗操作，还需要将包含当前医生的医疗体验套餐也离岗
             List<Long> doctorIds = new ArrayList<>();
             doctorIds.add(id);
             // select checkup_package_id from checkup_package_doctor where doctor_id in (?,?,?)
-            List<Long> checkup_packageIds = checkup_packageDoctorMapper.getSetmealIdsByDoctorIds(doctorIds);
+            List<Long> checkup_packageIds = checkup_packageDoctorMapper.getCheckupPackageIdsByDoctorIds(doctorIds);
             if (checkup_packageIds != null && checkup_packageIds.size() > 0) {
                 for (Long checkup_packageId : checkup_packageIds) {
-                    Setmeal checkup_package = Setmeal.builder()
+                    CheckupPackage checkup_package = CheckupPackage.builder()
                             .id(checkup_packageId)
                             .status(StatusConstant.DISABLE)
                             .build();

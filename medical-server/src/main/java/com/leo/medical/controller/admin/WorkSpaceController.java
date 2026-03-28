@@ -5,7 +5,7 @@ import com.leo.medical.service.WorkspaceService;
 import com.leo.medical.vo.BusinessDataVO;
 import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
-import com.leo.medical.vo.SetmealOverViewVO;
+import com.leo.medical.vo.CheckupPackageOverViewVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -65,12 +65,12 @@ public class WorkSpaceController {
     }
 
     /**
-     * 查询套餐总览
+     * 查询医疗体验套餐总览
      * @return
      */
-    @GetMapping("/overviewSetmeals")
-    @ApiOperation("查询套餐总览")
-    public Result<SetmealOverViewVO> checkup_packageOverView(){
-        return Result.success(workspaceService.getSetmealOverView());
+    @GetMapping("/overviewCheckupPackages")
+    @ApiOperation("查询医疗体验套餐总览")
+    public Result<CheckupPackageOverViewVO> checkup_packageOverView(){
+        return Result.success(workspaceService.getCheckupPackageOverView());
     }
 }

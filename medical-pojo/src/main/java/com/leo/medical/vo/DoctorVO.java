@@ -28,7 +28,7 @@ public class DoctorVO implements Serializable {
     private String image;
     //描述信息
     private String description;
-    //0 停售 1 起售
+    //0 离岗 1 在岗
     private Integer status;
     //更新时间
     private LocalDateTime updateTime;

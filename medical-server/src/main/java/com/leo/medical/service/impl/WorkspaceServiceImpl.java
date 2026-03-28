@@ -4,13 +4,13 @@ import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.entity.Orders;
 import com.leo.medical.mapper.DoctorMapper;
 import com.leo.medical.mapper.OrderMapper;
-import com.leo.medical.mapper.SetmealMapper;
+import com.leo.medical.mapper.CheckupPackageMapper;
 import com.leo.medical.mapper.UserMapper;
 import com.leo.medical.service.WorkspaceService;
 import com.leo.medical.vo.BusinessDataVO;
 import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
-import com.leo.medical.vo.SetmealOverViewVO;
+import com.leo.medical.vo.CheckupPackageOverViewVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private SetmealMapper checkup_packageMapper;
+    private CheckupPackageMapper checkup_packageMapper;
 
     /**
      * 根据时间段统计营业数据
@@ -146,11 +146,11 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     /**
-     * 查询套餐总览
+     * 查询医疗体验套餐总览
      *
      * @return
      */
-    public SetmealOverViewVO getSetmealOverView() {
+    public CheckupPackageOverViewVO getCheckupPackageOverView() {
         Map map = new HashMap();
         map.put("status", StatusConstant.ENABLE);
         Integer sold = checkup_packageMapper.countByMap(map);
@@ -158,7 +158,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         map.put("status", StatusConstant.DISABLE);
         Integer discontinued = checkup_packageMapper.countByMap(map);
 
-        return SetmealOverViewVO.builder()
+        return CheckupPackageOverViewVO.builder()
                 .sold(sold)
                 .discontinued(discontinued)
                 .build();

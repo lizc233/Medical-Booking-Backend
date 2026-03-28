@@ -48,7 +48,7 @@ public class DoctorController {
 //        如果不存在，查询数据库，将查询到的数据放入redis中
         Doctor doctor = new Doctor();
         doctor.setDepartmentId(departmentId);
-        doctor.setStatus(StatusConstant.ENABLE);//查询起售中的医生
+        doctor.setStatus(StatusConstant.ENABLE);//查询在岗中的医生
 
         list = doctorService.listWithFlavor(doctor);
 

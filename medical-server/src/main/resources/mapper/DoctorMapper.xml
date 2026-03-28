@@ -72,8 +72,8 @@
         order by create_time desc
     </select>
 
-<!--    根据体验套餐id查询医生-->
-    <select id="getBySetmealId" resultType="com.leo.medical.entity.Doctor">
+<!--    根据体验医疗体验套餐id查询医生-->
+    <select id="getByCheckupPackageId" resultType="com.leo.medical.entity.Doctor">
         select d.*
         from doctor d,
              checkup_package_doctor sd

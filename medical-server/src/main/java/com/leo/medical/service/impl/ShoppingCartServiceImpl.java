@@ -3,10 +3,10 @@ package com.leo.medical.service.impl;
 import com.leo.medical.context.BaseContext;
 import com.leo.medical.dto.ShoppingCartDTO;
 import com.leo.medical.entity.Doctor;
-import com.leo.medical.entity.Setmeal;
+import com.leo.medical.entity.CheckupPackage;
 import com.leo.medical.entity.ShoppingCart;
 import com.leo.medical.mapper.DoctorMapper;
-import com.leo.medical.mapper.SetmealMapper;
+import com.leo.medical.mapper.CheckupPackageMapper;
 import com.leo.medical.mapper.ShoppingCartMapper;
 import com.leo.medical.service.ShoppingCartService;
 import org.springframework.beans.BeanUtils;
@@ -26,7 +26,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private SetmealMapper checkup_packageMapper;
+    private CheckupPackageMapper checkup_packageMapper;
 
     /**
      * 添加购物车
@@ -58,8 +58,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 shoppingCart.setImage(doctor.getImage());
                 shoppingCart.setAmount(doctor.getPrice());
             } else {
-//                添加到购物车的是套餐
-                Setmeal checkup_package = checkup_packageMapper.getById(shoppingCartDTO.getSetmealId());
+//                添加到购物车的是医疗体验套餐
+                CheckupPackage checkup_package = checkup_packageMapper.getById(shoppingCartDTO.getCheckupPackageId());
                 shoppingCart.setName(checkup_package.getName());
                 shoppingCart.setImage(checkup_package.getImage());
                 shoppingCart.setAmount(checkup_package.getPrice());

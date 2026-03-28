@@ -21,7 +21,7 @@ public class DoctorDTO implements Serializable {
     private String image;
     //描述信息
     private String description;
-    //0 停售 1 起售
+    //0 离岗 1 在岗
     private Integer status;
     //特长标签
     private List<SpecialTag> flavors = new ArrayList<>();

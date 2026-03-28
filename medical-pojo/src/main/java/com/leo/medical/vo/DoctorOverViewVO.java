@@ -18,6 +18,6 @@ public class DoctorOverViewVO implements Serializable {
     // 已启售数量
     private Integer sold;
 
-    // 已停售数量
+    // 已离岗数量
     private Integer discontinued;
 }

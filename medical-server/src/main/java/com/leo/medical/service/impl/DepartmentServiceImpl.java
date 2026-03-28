@@ -11,7 +11,7 @@ import com.leo.medical.entity.Department;
 import com.leo.medical.exception.DeletionNotAllowedException;
 import com.leo.medical.mapper.DepartmentMapper;
 import com.leo.medical.mapper.DoctorMapper;
-import com.leo.medical.mapper.SetmealMapper;
+import com.leo.medical.mapper.CheckupPackageMapper;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DoctorMapper doctorMapper;
     @Autowired
-    private SetmealMapper checkup_packageMapper;
+    private CheckupPackageMapper checkup_packageMapper;
 
     /**
      * 新增科室
@@ -80,7 +80,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DOCTOR);
         }
 
-        //查询当前科室是否关联了套餐，如果关联了就抛出业务异常
+        //查询当前科室是否关联了医疗体验套餐，如果关联了就抛出业务异常
         count = checkup_packageMapper.countByDepartmentId(id);
         if(count > 0){
             //当前科室下有医生，不能删除

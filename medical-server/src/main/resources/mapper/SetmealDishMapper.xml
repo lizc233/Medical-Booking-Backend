@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.leo.medical.mapper.SetmealDoctorMapper">
-<!--    保存体验套餐和医生的关联关系-->
+<mapper namespace="com.leo.medical.mapper.CheckupPackageDoctorMapper">
+<!--    保存体验医疗体验套餐和医生的关联关系-->
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
         insert into checkup_package_doctor (checkup_package_id, doctor_id, name, price, copies) VALUES
         <foreach collection="checkup_packageDoctores" separator="," item="item">
             (#{item.checkup_packageId},#{item.doctorId},#{item.name},#{item.price},#{item.copies})
         </foreach>
     </insert>
-<!--    删除体验套餐餐品关系表中的数据-->
+<!--    删除体验医疗体验套餐餐品关系表中的数据-->
     <delete id="deleteBySetmaleId">
         delete
         from checkup_package_doctor
         where checkup_package_id=#{id};
     </delete>
 
-    <!--    判断当前医生是否被体验套餐关联了-->
-    <select id="getSetmealIdsByDoctorIds" resultType="java.lang.Long">
+    <!--    判断当前医生是否被体验医疗体验套餐关联了-->
+    <select id="getCheckupPackageIdsByDoctorIds" resultType="java.lang.Long">
         select checkup_package_id
         from checkup_package_doctor where doctor_id in
         <foreach collection="ids" separator="," item="item" open="(" close=")">
@@ -25,8 +25,8 @@
         </foreach>
     </select>
 
-<!--    根据体验套餐信息查询医生信息-->
-    <select id="getBySetmealId" resultType="com.leo.medical.entity.SetmealDoctor">
+<!--    根据体验医疗体验套餐信息查询医生信息-->
+    <select id="getByCheckupPackageId" resultType="com.leo.medical.entity.CheckupPackageDoctor">
         select *
         from checkup_package_doctor where checkup_package_id=#{id};
     </select>

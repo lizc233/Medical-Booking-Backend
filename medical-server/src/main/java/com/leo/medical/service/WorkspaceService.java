@@ -3,7 +3,7 @@ package com.leo.medical.service;
 import com.leo.medical.vo.BusinessDataVO;
 import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
-import com.leo.medical.vo.SetmealOverViewVO;
+import com.leo.medical.vo.CheckupPackageOverViewVO;
 
 import java.time.LocalDateTime;
 
@@ -29,8 +29,8 @@ public interface WorkspaceService {
     DoctorOverViewVO getDoctorOverView();
 
     /**
-     * 查询套餐总览
+     * 查询医疗体验套餐总览
      * @return
      */
-    SetmealOverViewVO getSetmealOverView();
+    CheckupPackageOverViewVO getCheckupPackageOverView();
 }

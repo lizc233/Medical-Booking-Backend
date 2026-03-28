@@ -16,7 +16,7 @@ public class DepartmentPageQueryDTO implements Serializable {
     //科室名称
     private String name;
 
-    //科室类型 1医生科室  2套餐科室
+    //科室类型 1医生科室  2医疗体验套餐科室
     private Integer type;
 
 }

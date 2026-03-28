@@ -56,7 +56,7 @@ public interface DoctorService {
     List<DoctorVO> listWithFlavor(Doctor doctor);
 
     /**
-     * 医生起售停售
+     * 医生在岗离岗
      * @param status
      * @param id
      */

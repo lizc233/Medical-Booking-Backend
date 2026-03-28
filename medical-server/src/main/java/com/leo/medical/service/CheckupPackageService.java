@@ -1,49 +1,49 @@
 package com.leo.medical.service;
 
-import com.leo.medical.dto.SetmealDTO;
-import com.leo.medical.dto.SetmealPageQueryDTO;
-import com.leo.medical.entity.Setmeal;
+import com.leo.medical.dto.CheckupPackageDTO;
+import com.leo.medical.dto.CheckupPackagePageQueryDTO;
+import com.leo.medical.entity.CheckupPackage;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.vo.DoctorItemVO;
-import com.leo.medical.vo.SetmealVO;
+import com.leo.medical.vo.CheckupPackageVO;
 
 import java.util.List;
 
 public interface CheckupPackageService {
     /**
-     * 新增套餐
+     * 新增医疗体验套餐
      * @param checkup_packageDTO
      */
-    void saveWithDoctor(SetmealDTO checkup_packageDTO);
+    void saveWithDoctor(CheckupPackageDTO checkup_packageDTO);
 
     /**
      * 分页查询
      * @param checkup_packagePageQueryDTO
      * @return
      */
-    PageResult pageQuery(SetmealPageQueryDTO checkup_packagePageQueryDTO);
+    PageResult pageQuery(CheckupPackagePageQueryDTO checkup_packagePageQueryDTO);
 
     /**
-     * 批量删除套餐
+     * 批量删除医疗体验套餐
      * @param ids
      */
     void deleteBatch(List<Long> ids);
 
     /**
-     * 根据id查询套餐
+     * 根据id查询医疗体验套餐
      * @param id
      * @return
      */
-    SetmealVO getByIdWithDoctor(Long id);
+    CheckupPackageVO getByIdWithDoctor(Long id);
 
     /**
-     * 修改套餐
+     * 修改医疗体验套餐
      * @param checkup_packageDTO
      */
-    void update(SetmealDTO checkup_packageDTO);
+    void update(CheckupPackageDTO checkup_packageDTO);
 
     /**
-     * 套餐起售停售
+     * 医疗体验套餐在岗离岗
      * @param status
      * @param id
      */
@@ -54,7 +54,7 @@ public interface CheckupPackageService {
      * @param checkup_package
      * @return
      */
-    List<Setmeal> list(Setmeal checkup_package);
+    List<CheckupPackage> list(CheckupPackage checkup_package);
 
     /**
      * 根据id查询医生选项

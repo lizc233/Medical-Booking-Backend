@@ -1,6 +1,6 @@
 package com.leo.medical.vo;
 
-import com.leo.medical.entity.SetmealDoctor;
+import com.leo.medical.entity.CheckupPackageDoctor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,17 +15,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetmealVO implements Serializable {
+public class CheckupPackageVO implements Serializable {
 
     private Long id;
 
     //科室id
     private Long departmentId;
 
-    //套餐名称
+    //医疗体验套餐名称
     private String name;
 
-    //套餐价格
+    //医疗体验套餐价格
     private BigDecimal price;
 
     //状态 0:停用 1:启用
@@ -43,6 +43,6 @@ public class SetmealVO implements Serializable {
     //科室名称
     private String departmentName;
 
-    //套餐和医生的关联关系
-    private List<SetmealDoctor> checkup_packageDoctores = new ArrayList<>();
+    //医疗体验套餐和医生的关联关系
+    private List<CheckupPackageDoctor> checkup_packageDoctors = new ArrayList<>();
 }

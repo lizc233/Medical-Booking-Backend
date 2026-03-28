@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 套餐
+ * 医疗体验套餐
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Setmeal implements Serializable {
+public class CheckupPackage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,10 +24,10 @@ public class Setmeal implements Serializable {
     //科室id
     private Long departmentId;
 
-    //套餐名称
+    //医疗体验套餐名称
     private String name;
 
-    //套餐价格
+    //医疗体验套餐价格
     private BigDecimal price;
 
     //状态 0:停用 1:启用

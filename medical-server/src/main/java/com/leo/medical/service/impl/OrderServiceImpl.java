@@ -250,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
 //        根据id查询订单
         Orders orders = orderMapper.getById(id);
 
-//        查询该订单对应的医生/套餐明细
+//        查询该订单对应的医生/医疗体验套餐明细
         List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(id);
 
 //        将订单及其详情封装到OrderVo并返回

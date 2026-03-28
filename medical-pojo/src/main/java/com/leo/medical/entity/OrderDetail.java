@@ -30,7 +30,7 @@ public class OrderDetail implements Serializable {
     //医生id
     private Long doctorId;
 
-    //套餐id
+    //医疗体验套餐id
     private Long checkup_packageId;
 
     //特长标签

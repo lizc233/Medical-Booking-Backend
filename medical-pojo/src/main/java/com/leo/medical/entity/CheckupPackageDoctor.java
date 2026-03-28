@@ -9,20 +9,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 套餐医生关系
+ * 医疗体验套餐医生关系
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetmealDoctor implements Serializable {
+public class CheckupPackageDoctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //套餐id
-    private Long checkup_packageId;
+    //医疗体验套餐id
+    private Long checkupPackageId;
 
     //医生id
     private Long doctorId;
