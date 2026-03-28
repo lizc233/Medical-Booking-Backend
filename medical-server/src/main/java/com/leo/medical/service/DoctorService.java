@@ -49,7 +49,7 @@ public interface DoctorService {
     List<Doctor> list(Long departmentId);
 
     /**
-     * 条件查询医生和口味
+     * 条件查询医生和特长标签
      * @param doctor
      * @return
      */

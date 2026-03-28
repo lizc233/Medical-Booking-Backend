@@ -1,6 +1,6 @@
 package com.leo.medical.dto;
 
-import com.leo.medical.entity.DoctorFlavor;
+import com.leo.medical.entity.SpecialTag;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class DoctorDTO implements Serializable {
     private String description;
     //0 停售 1 起售
     private Integer status;
-    //口味
-    private List<DoctorFlavor> flavors = new ArrayList<>();
+    //特长标签
+    private List<SpecialTag> flavors = new ArrayList<>();
 
 }

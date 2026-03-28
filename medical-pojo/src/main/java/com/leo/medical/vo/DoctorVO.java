@@ -1,6 +1,6 @@
 package com.leo.medical.vo;
 
-import com.leo.medical.entity.DoctorFlavor;
+import com.leo.medical.entity.SpecialTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,8 +34,8 @@ public class DoctorVO implements Serializable {
     private LocalDateTime updateTime;
     //科室名称
     private String departmentName;
-    //医生关联的口味
-    private List<DoctorFlavor> flavors = new ArrayList<>();
+    //医生关联的特长标签
+    private List<SpecialTag> flavors = new ArrayList<>();
 
     //private Integer copies;
 }

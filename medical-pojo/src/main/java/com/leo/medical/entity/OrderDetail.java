@@ -33,7 +33,7 @@ public class OrderDetail implements Serializable {
     //套餐id
     private Long setmealId;
 
-    //口味
+    //特长标签
     private String doctorFlavor;
 
     //数量

@@ -7,7 +7,7 @@
         insert into order_detail (name, order_id, doctor_id, setmeal_id, doctor_flavor, number, amount, image)
         values
         <foreach collection="orderDetailList" item="od" separator=",">
-            (#{od.name},#{od.orderId},#{od.doctorId},#{od.setmealId},#{od.doctorFlavor},
+            (#{od.name},#{od.orderId},#{od.doctorId},#{od.setmealId},#{od.specialTag},
             #{od.number},#{od.amount},#{od.image})
         </foreach>
     </insert>

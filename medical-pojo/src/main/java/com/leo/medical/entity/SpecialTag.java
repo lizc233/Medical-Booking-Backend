@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 医生口味
+ * 医生特长标签
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorFlavor implements Serializable {
+public class SpecialTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,10 +22,10 @@ public class DoctorFlavor implements Serializable {
     //医生id
     private Long doctorId;
 
-    //口味名称
+    //特长标签名称
     private String name;
 
-    //口味数据list
+    //特长标签数据list
     private String value;
 
 }

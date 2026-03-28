@@ -7,10 +7,10 @@ import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.dto.DoctorDTO;
 import com.leo.medical.dto.DoctorPageQueryDTO;
 import com.leo.medical.entity.Doctor;
-import com.leo.medical.entity.DoctorFlavor;
+import com.leo.medical.entity.SpecialTag;
 import com.leo.medical.entity.Setmeal;
 import com.leo.medical.exception.DeletionNotAllowedException;
-import com.leo.medical.mapper.DoctorFlavorMapper;
+import com.leo.medical.mapper.SpecialTagMapper;
 import com.leo.medical.mapper.DoctorMapper;
 import com.leo.medical.mapper.SetmealDoctorMapper;
 import com.leo.medical.mapper.SetmealMapper;
@@ -32,7 +32,7 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private DoctorFlavorMapper doctorFlavorMapper;
+    private SpecialTagMapper specialTagMapper;
 
     @Autowired
     private SetmealDoctorMapper setmealDoctorMapper;
@@ -56,11 +56,11 @@ public class DoctorServiceImpl implements DoctorService {
 //        获取insert语句生成的主键值
         Long doctorId = doctor.getId();
 
-        List<DoctorFlavor> flavors = doctorDTO.getFlavors();
+        List<SpecialTag> flavors = doctorDTO.getFlavors();
         if (flavors != null && flavors.size() > 0) {
-            flavors.forEach(doctorFlavor -> doctorFlavor.setDoctorId(doctorId));
-//            向口味表插入n条数据
-            doctorFlavorMapper.insertBatch(flavors);
+            flavors.forEach(specialTag -> specialTag.setDoctorId(doctorId));
+//            向特长标签表插入n条数据
+            specialTagMapper.insertBatch(flavors);
         }
     }
 
@@ -103,8 +103,8 @@ public class DoctorServiceImpl implements DoctorService {
         ids.forEach(id->{
             doctorMapper.deleteById(id);
 
-//            删除菜单关联的口味数据
-            doctorFlavorMapper.deleteByDoctorId(id);
+//            删除菜单关联的特长标签数据
+            specialTagMapper.deleteByDoctorId(id);
         });
 
     }
@@ -119,13 +119,13 @@ public class DoctorServiceImpl implements DoctorService {
 //        根据id查询医生数据
         Doctor doctor = doctorMapper.getById(id);
 
-//        根据医生id查询口味数据
-        List<DoctorFlavor> doctorFlavorList = doctorFlavorMapper.getByDoctorId(id);
+//        根据医生id查询特长标签数据
+        List<SpecialTag> specialTagList = specialTagMapper.getByDoctorId(id);
 
 //        将查询到的数据封装到vo
         DoctorVO doctorVO = new DoctorVO();
         BeanUtils.copyProperties(doctor, doctorVO);
-        doctorVO.setFlavors(doctorFlavorList);
+        doctorVO.setFlavors(specialTagList);
 
         return doctorVO;
     }
@@ -142,16 +142,16 @@ public class DoctorServiceImpl implements DoctorService {
 //        修改医生基本信息
         doctorMapper.update(doctor);
 
-//        删除原有的口味信息
-        doctorFlavorMapper.deleteByDoctorId(doctorDTO.getId());
+//        删除原有的特长标签信息
+        specialTagMapper.deleteByDoctorId(doctorDTO.getId());
 
-//        重新插入口味数据
-        List<DoctorFlavor> flavors = doctorDTO.getFlavors();
+//        重新插入特长标签数据
+        List<SpecialTag> flavors = doctorDTO.getFlavors();
         if (flavors != null && flavors.size() > 0) {
-            flavors.forEach(doctorFlavor -> doctorFlavor.setDoctorId(doctorDTO.getId()));
+            flavors.forEach(specialTag -> specialTag.setDoctorId(doctorDTO.getId()));
 
-//            向口味表插入n条数据
-            doctorFlavorMapper.insertBatch(flavors);
+//            向特长标签表插入n条数据
+            specialTagMapper.insertBatch(flavors);
         }
 
     }
@@ -171,7 +171,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     /**
-     * 条件查询医生和口味
+     * 条件查询医生和特长标签
      * @param doctor
      * @return
      */
@@ -185,8 +185,8 @@ public class DoctorServiceImpl implements DoctorService {
             DoctorVO doctorVO = new DoctorVO();
             BeanUtils.copyProperties(d, doctorVO);
 
-//            根据医生id查询对应的口味
-            List<DoctorFlavor> flavors = doctorFlavorMapper.getByDoctorId(d.getId());
+//            根据医生id查询对应的特长标签
+            List<SpecialTag> flavors = specialTagMapper.getByDoctorId(d.getId());
 
             doctorVO.setFlavors(flavors);
             doctorVOArrayList.add(doctorVO);
