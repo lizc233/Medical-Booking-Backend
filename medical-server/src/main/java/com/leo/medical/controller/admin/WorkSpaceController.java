@@ -70,7 +70,7 @@ public class WorkSpaceController {
      */
     @GetMapping("/overviewSetmeals")
     @ApiOperation("查询套餐总览")
-    public Result<SetmealOverViewVO> setmealOverView(){
+    public Result<SetmealOverViewVO> checkup_packageOverView(){
         return Result.success(workspaceService.getSetmealOverView());
     }
 }

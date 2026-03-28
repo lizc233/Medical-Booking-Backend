@@ -31,6 +31,6 @@ public class SetmealDTO implements Serializable {
     private String image;
 
     //套餐医生关系
-    private List<SetmealDoctor> setmealDoctores = new ArrayList<>();
+    private List<SetmealDoctor> checkup_packageDoctores = new ArrayList<>();
 
 }

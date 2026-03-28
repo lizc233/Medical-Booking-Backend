@@ -35,10 +35,10 @@ public class DoctorServiceImpl implements DoctorService {
     private SpecialTagMapper specialTagMapper;
 
     @Autowired
-    private SetmealDoctorMapper setmealDoctorMapper;
+    private SetmealDoctorMapper checkup_packageDoctorMapper;
 
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetmealMapper checkup_packageMapper;
 
     /**
      * 新增医生
@@ -93,8 +93,8 @@ public class DoctorServiceImpl implements DoctorService {
         });
 
 //        判断当前医生是否能够删除---是否被套餐关联了？？
-        List<Long> setmealIds = setmealDoctorMapper.getSetmealIdsByDoctorIds(ids);
-        if (setmealIds != null && setmealIds.size() > 0) {
+        List<Long> checkup_packageIds = checkup_packageDoctorMapper.getSetmealIdsByDoctorIds(ids);
+        if (checkup_packageIds != null && checkup_packageIds.size() > 0) {
 //            当前医生被套餐关联了，不能删除
             throw new DeletionNotAllowedException(MessageConstant.DOCTOR_BE_RELATED_BY_SETMEAL);
         }
@@ -213,15 +213,15 @@ public class DoctorServiceImpl implements DoctorService {
             // 如果是停售操作，还需要将包含当前医生的套餐也停售
             List<Long> doctorIds = new ArrayList<>();
             doctorIds.add(id);
-            // select setmeal_id from setmeal_doctor where doctor_id in (?,?,?)
-            List<Long> setmealIds = setmealDoctorMapper.getSetmealIdsByDoctorIds(doctorIds);
-            if (setmealIds != null && setmealIds.size() > 0) {
-                for (Long setmealId : setmealIds) {
-                    Setmeal setmeal = Setmeal.builder()
-                            .id(setmealId)
+            // select checkup_package_id from checkup_package_doctor where doctor_id in (?,?,?)
+            List<Long> checkup_packageIds = checkup_packageDoctorMapper.getSetmealIdsByDoctorIds(doctorIds);
+            if (checkup_packageIds != null && checkup_packageIds.size() > 0) {
+                for (Long checkup_packageId : checkup_packageIds) {
+                    Setmeal checkup_package = Setmeal.builder()
+                            .id(checkup_packageId)
                             .status(StatusConstant.DISABLE)
                             .build();
-                    setmealMapper.update(setmeal);
+                    checkup_packageMapper.update(checkup_package);
                 }
             }
         }

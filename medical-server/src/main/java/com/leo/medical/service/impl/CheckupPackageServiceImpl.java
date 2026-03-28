@@ -15,7 +15,7 @@ import com.leo.medical.mapper.DoctorMapper;
 import com.leo.medical.mapper.SetmealDoctorMapper;
 import com.leo.medical.mapper.SetmealMapper;
 import com.leo.medical.result.PageResult;
-import com.leo.medical.service.SetmealService;
+import com.leo.medical.service.CheckupPackageService;
 import com.leo.medical.vo.DoctorItemVO;
 import com.leo.medical.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
@@ -28,51 +28,51 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SetmealServiceImpl implements SetmealService {
+public class CheckupPackageServiceImpl implements CheckupPackageService {
 
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetmealMapper checkup_packageMapper;
 
     @Autowired
-    private SetmealDoctorMapper setmealDoctorMapper;
+    private SetmealDoctorMapper checkup_packageDoctorMapper;
 
     @Autowired
     private DoctorMapper doctorMapper;
 
     /**
      * 新增套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      */
     @Override
     @Transactional
-    public void saveWithDoctor(SetmealDTO setmealDTO) {
-        Setmeal setmeal = new Setmeal();
-        BeanUtils.copyProperties(setmealDTO, setmeal);
+    public void saveWithDoctor(SetmealDTO checkup_packageDTO) {
+        Setmeal checkup_package = new Setmeal();
+        BeanUtils.copyProperties(checkup_packageDTO, checkup_package);
 
 //        向套餐表插入数据
-        setmealMapper.insert(setmeal);
+        checkup_packageMapper.insert(checkup_package);
 
 //        获取生成的套餐id
-        Long id = setmeal.getId();
+        Long id = checkup_package.getId();
 
 //        设置id
-        List<SetmealDoctor> setmealDoctores = setmealDTO.getSetmealDoctores();
-        setmealDoctores.forEach(setmealDoctor -> setmealDoctor.setSetmealId(id));
+        List<SetmealDoctor> checkup_packageDoctores = checkup_packageDTO.getSetmealDoctores();
+        checkup_packageDoctores.forEach(checkup_packageDoctor -> checkup_packageDoctor.setSetmealId(id));
 
 //        保存套餐和医生的关联关系
-        setmealDoctorMapper.insertBatch(setmealDoctores);
+        checkup_packageDoctorMapper.insertBatch(checkup_packageDoctores);
     }
 
     /**
      * 分页查询
-     * @param setmealPageQueryDTO
+     * @param checkup_packagePageQueryDTO
      * @return
      */
     @Override
-    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
-        PageHelper.startPage(setmealPageQueryDTO.getPage(), setmealPageQueryDTO.getPageSize());
+    public PageResult pageQuery(SetmealPageQueryDTO checkup_packagePageQueryDTO) {
+        PageHelper.startPage(checkup_packagePageQueryDTO.getPage(), checkup_packagePageQueryDTO.getPageSize());
 
-        Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
+        Page<SetmealVO> page = checkup_packageMapper.pageQuery(checkup_packagePageQueryDTO);
         return new PageResult(page.getTotal(), page.getResult());
     }
 
@@ -84,18 +84,18 @@ public class SetmealServiceImpl implements SetmealService {
     public void deleteBatch(List<Long> ids) {
 //        起售中的套餐不能删除
         ids.forEach(id->{
-            Setmeal setmeal = setmealMapper.getById(id);
-            if (StatusConstant.ENABLE == setmeal.getStatus()) {
+            Setmeal checkup_package = checkup_packageMapper.getById(id);
+            if (StatusConstant.ENABLE == checkup_package.getStatus()) {
                 throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
             }
         });
 
         ids.forEach(id->{
 //            删除套餐表中的数据
-            setmealMapper.deleteById(id);
+            checkup_packageMapper.deleteById(id);
 
 //            删除套餐餐品关系表中的数据
-            setmealDoctorMapper.deleteBySetmaleId(id);
+            checkup_packageDoctorMapper.deleteBySetmaleId(id);
         });
 
     }
@@ -107,42 +107,42 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     public SetmealVO getByIdWithDoctor(Long id) {
-        SetmealVO setmealVO = new SetmealVO();
+        SetmealVO checkup_packageVO = new SetmealVO();
 
 //        查询套餐基本信息
-        Setmeal setmeal = setmealMapper.getById(id);
-        BeanUtils.copyProperties(setmeal, setmealVO);
+        Setmeal checkup_package = checkup_packageMapper.getById(id);
+        BeanUtils.copyProperties(checkup_package, checkup_packageVO);
 
 //        根据套餐信息查询医生信息
-        List<SetmealDoctor> setmealDoctorList = setmealDoctorMapper.getBySetmealId(id);
-        setmealVO.setSetmealDoctores(setmealDoctorList);
+        List<SetmealDoctor> checkup_packageDoctorList = checkup_packageDoctorMapper.getBySetmealId(id);
+        checkup_packageVO.setSetmealDoctores(checkup_packageDoctorList);
 
-        return setmealVO;
+        return checkup_packageVO;
     }
 
     /**
      * 修改套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      */
     @Override
-    public void update(SetmealDTO setmealDTO) {
-        Setmeal setmeal = new Setmeal();
-        BeanUtils.copyProperties(setmealDTO, setmeal);
+    public void update(SetmealDTO checkup_packageDTO) {
+        Setmeal checkup_package = new Setmeal();
+        BeanUtils.copyProperties(checkup_packageDTO, checkup_package);
 
 //        1.修改套餐表，执行update
-        setmealMapper.update(setmeal);
+        checkup_packageMapper.update(checkup_package);
 
 //        套餐id
-        Long id = setmealDTO.getId();
+        Long id = checkup_packageDTO.getId();
 
 //        2.删除套餐和医生的关联关系
-        setmealDoctorMapper.deleteBySetmaleId(setmealDTO.getId());
+        checkup_packageDoctorMapper.deleteBySetmaleId(checkup_packageDTO.getId());
 
-        List<SetmealDoctor> setmealDoctores = setmealDTO.getSetmealDoctores();
-        setmealDoctores.forEach(setmealDoctor -> setmealDoctor.setSetmealId(id));
+        List<SetmealDoctor> checkup_packageDoctores = checkup_packageDTO.getSetmealDoctores();
+        checkup_packageDoctores.forEach(checkup_packageDoctor -> checkup_packageDoctor.setSetmealId(id));
 
 //        3.重新插入套餐和医生的关联关系
-        setmealDoctorMapper.insertBatch(setmealDoctores);
+        checkup_packageDoctorMapper.insertBatch(checkup_packageDoctores);
     }
 
     /**
@@ -164,21 +164,21 @@ public class SetmealServiceImpl implements SetmealService {
             }
         }
 
-        Setmeal setmeal = Setmeal.builder()
+        Setmeal checkup_package = Setmeal.builder()
                 .id(id)
                 .status(status)
                 .build();
-        setmealMapper.update(setmeal);
+        checkup_packageMapper.update(checkup_package);
     }
 
     /**
      * 条件查询
-     * @param setmeal
+     * @param checkup_package
      * @return
      */
     @Override
-    public List<Setmeal> list(Setmeal setmeal) {
-        return setmealMapper.list(setmeal);
+    public List<Setmeal> list(Setmeal checkup_package) {
+        return checkup_packageMapper.list(checkup_package);
     }
 
     /**
@@ -188,6 +188,6 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     public List<DoctorItemVO> getDoctorItemById(Long id) {
-        return setmealMapper.getDoctorItemBySetmealId(id);
+        return checkup_packageMapper.getDoctorItemBySetmealId(id);
     }
 }

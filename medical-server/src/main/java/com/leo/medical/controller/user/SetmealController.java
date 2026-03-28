@@ -3,7 +3,7 @@ package com.leo.medical.controller.user;
 import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.entity.Setmeal;
 import com.leo.medical.result.Result;
-import com.leo.medical.service.SetmealService;
+import com.leo.medical.service.CheckupPackageService;
 import com.leo.medical.vo.DoctorItemVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController("userSetmealController")
-@RequestMapping("/user/setmeal")
+@RequestMapping("/user/checkup_package")
 @Api(tags = "C端-套餐浏览接口")
 public class SetmealController {
     @Autowired
-    private SetmealService setmealService;
+    private CheckupPackageService checkupPackageService;
 
     /**
      * 条件查询
@@ -30,13 +30,13 @@ public class SetmealController {
      */
     @GetMapping("/list")
     @ApiOperation("根据科室id查询套餐")
-    @Cacheable(cacheNames = "setmealCache",key = "#departmentId")
+    @Cacheable(cacheNames = "checkup_packageCache",key = "#departmentId")
     public Result<List<Setmeal>> list(Long departmentId) {
-        Setmeal setmeal = new Setmeal();
-        setmeal.setDepartmentId(departmentId);
-        setmeal.setStatus(StatusConstant.ENABLE);
+        Setmeal checkup_package = new Setmeal();
+        checkup_package.setDepartmentId(departmentId);
+        checkup_package.setStatus(StatusConstant.ENABLE);
 
-        List<Setmeal> list = setmealService.list(setmeal);
+        List<Setmeal> list = checkupPackageService.list(checkup_package);
         return Result.success(list);
     }
 
@@ -49,7 +49,7 @@ public class SetmealController {
     @GetMapping("/doctor/{id}")
     @ApiOperation("根据套餐id查询包含的医生列表")
     public Result<List<DoctorItemVO>> doctorList(@PathVariable("id") Long id) {
-        List<DoctorItemVO> list = setmealService.getDoctorItemById(id);
+        List<DoctorItemVO> list = checkupPackageService.getDoctorItemById(id);
         return Result.success(list);
     }
 }

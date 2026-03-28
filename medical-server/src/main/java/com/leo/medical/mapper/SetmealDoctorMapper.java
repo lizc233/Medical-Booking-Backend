@@ -16,9 +16,9 @@ public interface SetmealDoctorMapper {
 
     /**
      * 保存套餐和医生的关联关系
-     * @param setmealDoctores
+     * @param checkup_packageDoctores
      */
-    void insertBatch(List<SetmealDoctor> setmealDoctores);
+    void insertBatch(List<SetmealDoctor> checkup_packageDoctores);
 
     /**
      * 删除套餐餐品关系表中的数据

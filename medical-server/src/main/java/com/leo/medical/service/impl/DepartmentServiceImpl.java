@@ -33,7 +33,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DoctorMapper doctorMapper;
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetmealMapper checkup_packageMapper;
 
     /**
      * 新增科室
@@ -81,7 +81,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         //查询当前科室是否关联了套餐，如果关联了就抛出业务异常
-        count = setmealMapper.countByDepartmentId(id);
+        count = checkup_packageMapper.countByDepartmentId(id);
         if(count > 0){
             //当前科室下有医生，不能删除
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);

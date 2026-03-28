@@ -4,7 +4,7 @@ import com.leo.medical.dto.SetmealDTO;
 import com.leo.medical.dto.SetmealPageQueryDTO;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.result.Result;
-import com.leo.medical.service.SetmealService;
+import com.leo.medical.service.CheckupPackageService;
 import com.leo.medical.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,36 +19,36 @@ import java.util.List;
  * 套餐管理
  */
 @RestController
-@RequestMapping("/admin/setmeal")
+@RequestMapping("/admin/checkup_package")
 @Api(tags = "套餐相关接口")
 @Slf4j
-public class SetmealController {
+public class CheckupPackageController {
 
     @Autowired
-    private SetmealService setmealService;
+    private CheckupPackageService checkupPackageService;
 
     /**
      * 新增套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      * @return
      */
     @PostMapping
     @ApiOperation("新增套餐")
-    @CacheEvict(cacheNames = "setmealCache",key = "#setmealDTO.departmentId")
-    public Result save(@RequestBody SetmealDTO setmealDTO) {
-        setmealService.saveWithDoctor(setmealDTO);
+    @CacheEvict(cacheNames = "checkup_packageCache",key = "#checkup_packageDTO.departmentId")
+    public Result save(@RequestBody SetmealDTO checkup_packageDTO) {
+        checkupPackageService.saveWithDoctor(checkup_packageDTO);
         return Result.success();
     }
 
     /**
      * 分页查询
-     * @param setmealPageQueryDTO
+     * @param checkup_packagePageQueryDTO
      * @return
      */
     @GetMapping("/page")
     @ApiOperation("分页查询")
-    public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO) {
-        PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
+    public Result<PageResult> page(SetmealPageQueryDTO checkup_packagePageQueryDTO) {
+        PageResult pageResult = checkupPackageService.pageQuery(checkup_packagePageQueryDTO);
         return Result.success(pageResult);
     }
 
@@ -59,9 +59,9 @@ public class SetmealController {
      */
     @DeleteMapping
     @ApiOperation("批量删除套餐")
-    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
+    @CacheEvict(cacheNames = "checkup_packageCache",allEntries = true)
     public Result delete(@RequestParam List<Long> ids) {
-        setmealService.deleteBatch(ids);
+        checkupPackageService.deleteBatch(ids);
         return Result.success();
     }
 
@@ -73,20 +73,20 @@ public class SetmealController {
     @GetMapping("/{id}")
     @ApiOperation("根据id查询套餐")
     public Result<SetmealVO> getById(@PathVariable Long id) {
-        SetmealVO setmealVO = setmealService.getByIdWithDoctor(id);
-        return Result.success(setmealVO);
+        SetmealVO checkup_packageVO = checkupPackageService.getByIdWithDoctor(id);
+        return Result.success(checkup_packageVO);
     }
 
     /**
      * 修改套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      * @return
      */
     @PutMapping
     @ApiOperation("修改套餐")
-    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
-    public Result update(@RequestBody SetmealDTO setmealDTO) {
-        setmealService.update(setmealDTO);
+    @CacheEvict(cacheNames = "checkup_packageCache",allEntries = true)
+    public Result update(@RequestBody SetmealDTO checkup_packageDTO) {
+        checkupPackageService.update(checkup_packageDTO);
         return Result.success();
     }
 
@@ -98,9 +98,9 @@ public class SetmealController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("套餐起售停售")
-    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
+    @CacheEvict(cacheNames = "checkup_packageCache",allEntries = true)
     public Result startOrStop(@PathVariable Integer status, Long id) {
-        setmealService.startOrStop(status, id);
+        checkupPackageService.startOrStop(status, id);
         return Result.success();
     }
 }

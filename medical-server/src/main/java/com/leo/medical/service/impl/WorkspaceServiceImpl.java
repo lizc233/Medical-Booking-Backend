@@ -33,7 +33,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetmealMapper checkup_packageMapper;
 
     /**
      * 根据时间段统计营业数据
@@ -153,10 +153,10 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public SetmealOverViewVO getSetmealOverView() {
         Map map = new HashMap();
         map.put("status", StatusConstant.ENABLE);
-        Integer sold = setmealMapper.countByMap(map);
+        Integer sold = checkup_packageMapper.countByMap(map);
 
         map.put("status", StatusConstant.DISABLE);
-        Integer discontinued = setmealMapper.countByMap(map);
+        Integer discontinued = checkup_packageMapper.countByMap(map);
 
         return SetmealOverViewVO.builder()
                 .sold(sold)

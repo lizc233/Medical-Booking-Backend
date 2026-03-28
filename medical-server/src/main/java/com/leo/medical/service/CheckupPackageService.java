@@ -9,19 +9,19 @@ import com.leo.medical.vo.SetmealVO;
 
 import java.util.List;
 
-public interface SetmealService {
+public interface CheckupPackageService {
     /**
      * 新增套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      */
-    void saveWithDoctor(SetmealDTO setmealDTO);
+    void saveWithDoctor(SetmealDTO checkup_packageDTO);
 
     /**
      * 分页查询
-     * @param setmealPageQueryDTO
+     * @param checkup_packagePageQueryDTO
      * @return
      */
-    PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    PageResult pageQuery(SetmealPageQueryDTO checkup_packagePageQueryDTO);
 
     /**
      * 批量删除套餐
@@ -38,9 +38,9 @@ public interface SetmealService {
 
     /**
      * 修改套餐
-     * @param setmealDTO
+     * @param checkup_packageDTO
      */
-    void update(SetmealDTO setmealDTO);
+    void update(SetmealDTO checkup_packageDTO);
 
     /**
      * 套餐起售停售
@@ -51,10 +51,10 @@ public interface SetmealService {
 
     /**
      * 条件查询
-     * @param setmeal
+     * @param checkup_package
      * @return
      */
-    List<Setmeal> list(Setmeal setmeal);
+    List<Setmeal> list(Setmeal checkup_package);
 
     /**
      * 根据id查询医生选项

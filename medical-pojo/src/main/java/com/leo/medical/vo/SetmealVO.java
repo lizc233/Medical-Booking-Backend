@@ -44,5 +44,5 @@ public class SetmealVO implements Serializable {
     private String departmentName;
 
     //套餐和医生的关联关系
-    private List<SetmealDoctor> setmealDoctores = new ArrayList<>();
+    private List<SetmealDoctor> checkup_packageDoctores = new ArrayList<>();
 }

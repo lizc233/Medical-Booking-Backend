@@ -25,17 +25,17 @@ public interface SetmealMapper {
 
     /**
      * 向套餐表插入数据
-     * @param setmeal
+     * @param checkup_package
      */
     @AutoFill(OperationType.INSERT)
-    void insert(Setmeal setmeal);
+    void insert(Setmeal checkup_package);
 
     /**
      * 分页查询
-     * @param setmealPageQueryDTO
+     * @param checkup_packagePageQueryDTO
      * @return
      */
-    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    Page<SetmealVO> pageQuery(SetmealPageQueryDTO checkup_packagePageQueryDTO);
 
     /**
      * 根据id查询数据
@@ -52,17 +52,17 @@ public interface SetmealMapper {
 
     /**
      * 修改套餐表
-     * @param setmeal
+     * @param checkup_package
      */
     @AutoFill(OperationType.UPDATE)
-    void update(Setmeal setmeal);
+    void update(Setmeal checkup_package);
 
     /**
      * 条件查询
-     * @param setmeal
+     * @param checkup_package
      * @return
      */
-    List<Setmeal> list(Setmeal setmeal);
+    List<Setmeal> list(Setmeal checkup_package);
 
     /**
      * 根据id查询医生选项

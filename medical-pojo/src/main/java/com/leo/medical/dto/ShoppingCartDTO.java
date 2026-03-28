@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class ShoppingCartDTO implements Serializable {
 
     private Long doctorId;
-    private Long setmealId;
+    private Long checkup_packageId;
     private String doctorFlavor;
 
 }

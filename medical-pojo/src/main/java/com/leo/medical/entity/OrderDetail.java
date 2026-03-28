@@ -31,7 +31,7 @@ public class OrderDetail implements Serializable {
     private Long doctorId;
 
     //套餐id
-    private Long setmealId;
+    private Long checkup_packageId;
 
     //特长标签
     private String doctorFlavor;

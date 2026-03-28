@@ -26,7 +26,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private DoctorMapper doctorMapper;
 
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetmealMapper checkup_packageMapper;
 
     /**
      * 添加购物车
@@ -59,10 +59,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 shoppingCart.setAmount(doctor.getPrice());
             } else {
 //                添加到购物车的是套餐
-                Setmeal setmeal = setmealMapper.getById(shoppingCartDTO.getSetmealId());
-                shoppingCart.setName(setmeal.getName());
-                shoppingCart.setImage(setmeal.getImage());
-                shoppingCart.setAmount(setmeal.getPrice());
+                Setmeal checkup_package = checkup_packageMapper.getById(shoppingCartDTO.getSetmealId());
+                shoppingCart.setName(checkup_package.getName());
+                shoppingCart.setImage(checkup_package.getImage());
+                shoppingCart.setAmount(checkup_package.getPrice());
             }
             shoppingCart.setNumber(1);
             shoppingCart.setCreateTime(LocalDateTime.now());

@@ -72,13 +72,13 @@
         order by create_time desc
     </select>
 
-<!--    根据套餐id查询医生-->
+<!--    根据体验套餐id查询医生-->
     <select id="getBySetmealId" resultType="com.leo.medical.entity.Doctor">
         select d.*
         from doctor d,
-             setmeal_doctor sd
+             checkup_package_doctor sd
         where d.id = sd.doctor_id
-          and sd.setmeal_id = #{id}
+          and sd.checkup_package_id = #{id}
     </select>
 
 <!--    根据条件统计医生数量-->

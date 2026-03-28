@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.leo.medical.mapper.SetmealMapper">
-    <!--    向套餐表插入数据-->
+    <!--    向体验套餐表插入数据-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into setmeal(department_id, name, price, description, image, create_time, update_time, create_user,
+        insert into checkup_package(department_id, name, price, description, image, create_time, update_time, create_user,
                             update_user)
         values (#{departmentId}, #{name}, #{price}, #{description}, #{image}, #{createTime}, #{updateTime}, #{createUser},
                 #{updateUser});
 
     </insert>
-    <!--    修改套餐表-->
+    <!--    修改体验套餐表-->
     <update id="update">
-        update setmeal
+        update checkup_package
         <set>
             <if test="name != null"> name = #{name}, </if>
             <if test="departmentId != null"> department_id = #{departmentId}, </if>
@@ -29,20 +29,20 @@
     <!--    根据id删除数据-->
     <delete id="deleteById">
         delete
-        from setmeal
+        from checkup_package
         where id = #{id};
     </delete>
 
     <select id="countByDepartmentId" resultType="java.lang.Integer">
         select count(id)
-        from setmeal
+        from checkup_package
         where department_id = #{departmentId}
     </select>
 
     <!--    分页查询-->
     <select id="pageQuery" resultType="com.leo.medical.vo.SetmealVO">
         select s.*,c.name departmentName
-        from setmeal s left join department c on s.department_id = c.id
+        from checkup_package s left join department c on s.department_id = c.id
         <where>
             <if test="name!=null">
                 and s.name like concat('%',#{name},'%')
@@ -60,22 +60,22 @@
     <!--    根据id查询数据-->
     <select id="getById" resultType="com.leo.medical.entity.Setmeal">
         select *
-        from setmeal
+        from checkup_package
         where id = #{id};
     </select>
 
 <!--    根据id查询医生选项-->
     <select id="getDoctorItemBySetmealId" resultType="com.leo.medical.vo.DoctorItemVO">
         select sd.name, sd.copies, d.image, d.description
-        from setmeal_doctor sd
+        from checkup_package_doctor sd
                  left join doctor d on sd.doctor_id = d.id
-        where sd.setmeal_id = #{setmealId}
+        where sd.checkup_package_id = #{checkup_packageId}
     </select>
 
 <!--    条件查询-->
     <select id="list" resultType="com.leo.medical.entity.Setmeal">
         select *
-        from setmeal
+        from checkup_package
         <where>
             <if test="name != null"> and name like concat('%',#{name},'%') </if>
             <if test="departmentId != null"> and department_id = #{departmentId} </if>
@@ -83,9 +83,9 @@
         </where>
     </select>
 
-<!--    根据条件统计套餐数量-->
+<!--    根据条件统计体验套餐数量-->
     <select id="countByMap" resultType="java.lang.Integer">
-        select count(id) from setmeal
+        select count(id) from checkup_package
         <where>
             <if test="status != null">
                 and status = #{status}

@@ -22,7 +22,7 @@ public class SetmealDoctor implements Serializable {
     private Long id;
 
     //套餐id
-    private Long setmealId;
+    private Long checkup_packageId;
 
     //医生id
     private Long doctorId;
