@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.leo.medical.mapper.CategoryMapper">
+<mapper namespace="com.leo.medical.mapper.DepartmentMapper">
 <!--    插入数据-->
     <insert id="insert">
-        insert into category(type, name, sort, status, create_time, update_time, create_user, update_user)
+        insert into department(type, name, sort, status, create_time, update_time, create_user, update_user)
         VALUES (#{type}, #{name}, #{sort}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
 
-<!--    根据id删除分类-->
+<!--    根据id删除科室-->
     <delete id="deleteById">
-        delete from category where id = #{id}
+        delete from department where id = #{id}
     </delete>
 
     <!--    分页查询-->
-    <select id="pageQuery" resultType="com.leo.medical.entity.Category">
-        select * from category
+    <select id="pageQuery" resultType="com.leo.medical.entity.Department">
+        select * from department
         <where>
             <if test="name != null and name != ''">
                 and name like concat('%',#{name},'%')
@@ -27,8 +27,8 @@
         order by sort asc , create_time desc
     </select>
 
-    <update id="update" parameterType="Category">
-        update category
+    <update id="update" parameterType="Department">
+        update department
         <set>
             <if test="type != null">
                 type = #{type},
@@ -52,8 +52,8 @@
         where id = #{id}
     </update>
 
-    <select id="list" resultType="Category">
-        select * from category
+    <select id="list" resultType="Department">
+        select * from department
         where status = 1
         <if test="type != null">
             and type = #{type}

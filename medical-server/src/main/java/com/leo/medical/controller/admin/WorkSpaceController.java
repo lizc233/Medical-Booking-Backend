@@ -3,7 +3,7 @@ package com.leo.medical.controller.admin;
 import com.leo.medical.result.Result;
 import com.leo.medical.service.WorkspaceService;
 import com.leo.medical.vo.BusinessDataVO;
-import com.leo.medical.vo.DishOverViewVO;
+import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
 import com.leo.medical.vo.SetmealOverViewVO;
 import io.swagger.annotations.Api;
@@ -55,13 +55,13 @@ public class WorkSpaceController {
     }
 
     /**
-     * 查询菜品总览
+     * 查询医生总览
      * @return
      */
-    @GetMapping("/overviewDishes")
-    @ApiOperation("查询菜品总览")
-    public Result<DishOverViewVO> dishOverView(){
-        return Result.success(workspaceService.getDishOverView());
+    @GetMapping("/overviewDoctores")
+    @ApiOperation("查询医生总览")
+    public Result<DoctorOverViewVO> doctorOverView(){
+        return Result.success(workspaceService.getDoctorOverView());
     }
 
     /**

@@ -6,17 +6,17 @@ import com.leo.medical.constant.MessageConstant;
 import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.dto.SetmealDTO;
 import com.leo.medical.dto.SetmealPageQueryDTO;
-import com.leo.medical.entity.Dish;
+import com.leo.medical.entity.Doctor;
 import com.leo.medical.entity.Setmeal;
-import com.leo.medical.entity.SetmealDish;
+import com.leo.medical.entity.SetmealDoctor;
 import com.leo.medical.exception.DeletionNotAllowedException;
 import com.leo.medical.exception.SetmealEnableFailedException;
-import com.leo.medical.mapper.DishMapper;
-import com.leo.medical.mapper.SetmealDishMapper;
+import com.leo.medical.mapper.DoctorMapper;
+import com.leo.medical.mapper.SetmealDoctorMapper;
 import com.leo.medical.mapper.SetmealMapper;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.service.SetmealService;
-import com.leo.medical.vo.DishItemVO;
+import com.leo.medical.vo.DoctorItemVO;
 import com.leo.medical.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -34,10 +34,10 @@ public class SetmealServiceImpl implements SetmealService {
     private SetmealMapper setmealMapper;
 
     @Autowired
-    private SetmealDishMapper setmealDishMapper;
+    private SetmealDoctorMapper setmealDoctorMapper;
 
     @Autowired
-    private DishMapper dishMapper;
+    private DoctorMapper doctorMapper;
 
     /**
      * 新增套餐
@@ -45,7 +45,7 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     @Transactional
-    public void saveWithDish(SetmealDTO setmealDTO) {
+    public void saveWithDoctor(SetmealDTO setmealDTO) {
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO, setmeal);
 
@@ -56,11 +56,11 @@ public class SetmealServiceImpl implements SetmealService {
         Long id = setmeal.getId();
 
 //        设置id
-        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
-        setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(id));
+        List<SetmealDoctor> setmealDoctores = setmealDTO.getSetmealDoctores();
+        setmealDoctores.forEach(setmealDoctor -> setmealDoctor.setSetmealId(id));
 
-//        保存套餐和菜品的关联关系
-        setmealDishMapper.insertBatch(setmealDishes);
+//        保存套餐和医生的关联关系
+        setmealDoctorMapper.insertBatch(setmealDoctores);
     }
 
     /**
@@ -95,7 +95,7 @@ public class SetmealServiceImpl implements SetmealService {
             setmealMapper.deleteById(id);
 
 //            删除套餐餐品关系表中的数据
-            setmealDishMapper.deleteBySetmaleId(id);
+            setmealDoctorMapper.deleteBySetmaleId(id);
         });
 
     }
@@ -106,16 +106,16 @@ public class SetmealServiceImpl implements SetmealService {
      * @return
      */
     @Override
-    public SetmealVO getByIdWithDish(Long id) {
+    public SetmealVO getByIdWithDoctor(Long id) {
         SetmealVO setmealVO = new SetmealVO();
 
 //        查询套餐基本信息
         Setmeal setmeal = setmealMapper.getById(id);
         BeanUtils.copyProperties(setmeal, setmealVO);
 
-//        根据套餐信息查询菜品信息
-        List<SetmealDish> setmealDishList = setmealDishMapper.getBySetmealId(id);
-        setmealVO.setSetmealDishes(setmealDishList);
+//        根据套餐信息查询医生信息
+        List<SetmealDoctor> setmealDoctorList = setmealDoctorMapper.getBySetmealId(id);
+        setmealVO.setSetmealDoctores(setmealDoctorList);
 
         return setmealVO;
     }
@@ -135,14 +135,14 @@ public class SetmealServiceImpl implements SetmealService {
 //        套餐id
         Long id = setmealDTO.getId();
 
-//        2.删除套餐和菜品的关联关系
-        setmealDishMapper.deleteBySetmaleId(setmealDTO.getId());
+//        2.删除套餐和医生的关联关系
+        setmealDoctorMapper.deleteBySetmaleId(setmealDTO.getId());
 
-        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
-        setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(id));
+        List<SetmealDoctor> setmealDoctores = setmealDTO.getSetmealDoctores();
+        setmealDoctores.forEach(setmealDoctor -> setmealDoctor.setSetmealId(id));
 
-//        3.重新插入套餐和菜品的关联关系
-        setmealDishMapper.insertBatch(setmealDishes);
+//        3.重新插入套餐和医生的关联关系
+        setmealDoctorMapper.insertBatch(setmealDoctores);
     }
 
     /**
@@ -152,12 +152,12 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-//        起售套餐时，判断套餐内是否有停售菜品，有停售菜品提示"套餐内包含未启售菜品，无法启售"
+//        起售套餐时，判断套餐内是否有停售医生，有停售医生提示"套餐内包含未启售医生，无法启售"
         if (status == StatusConstant.ENABLE) {
-            List<Dish> dishList = dishMapper.getBySetmealId(id);
-            if (dishList != null && dishList.size() > 0) {
-                dishList.forEach(dish -> {
-                    if (StatusConstant.DISABLE == dish.getStatus()) { // 有停售商品
+            List<Doctor> doctorList = doctorMapper.getBySetmealId(id);
+            if (doctorList != null && doctorList.size() > 0) {
+                doctorList.forEach(doctor -> {
+                    if (StatusConstant.DISABLE == doctor.getStatus()) { // 有停售商品
                         throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
                     }
                 });
@@ -182,12 +182,12 @@ public class SetmealServiceImpl implements SetmealService {
     }
 
     /**
-     * 根据id查询菜品选项
+     * 根据id查询医生选项
      * @param id
      * @return
      */
     @Override
-    public List<DishItemVO> getDishItemById(Long id) {
-        return setmealMapper.getDishItemBySetmealId(id);
+    public List<DoctorItemVO> getDoctorItemById(Long id) {
+        return setmealMapper.getDoctorItemBySetmealId(id);
     }
 }

@@ -2,13 +2,13 @@ package com.leo.medical.service.impl;
 
 import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.entity.Orders;
-import com.leo.medical.mapper.DishMapper;
+import com.leo.medical.mapper.DoctorMapper;
 import com.leo.medical.mapper.OrderMapper;
 import com.leo.medical.mapper.SetmealMapper;
 import com.leo.medical.mapper.UserMapper;
 import com.leo.medical.service.WorkspaceService;
 import com.leo.medical.vo.BusinessDataVO;
-import com.leo.medical.vo.DishOverViewVO;
+import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
 import com.leo.medical.vo.SetmealOverViewVO;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     private UserMapper userMapper;
 
     @Autowired
-    private DishMapper dishMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
     private SetmealMapper setmealMapper;
@@ -127,19 +127,19 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     /**
-     * 查询菜品总览
+     * 查询医生总览
      *
      * @return
      */
-    public DishOverViewVO getDishOverView() {
+    public DoctorOverViewVO getDoctorOverView() {
         Map map = new HashMap();
         map.put("status", StatusConstant.ENABLE);
-        Integer sold = dishMapper.countByMap(map);
+        Integer sold = doctorMapper.countByMap(map);
 
         map.put("status", StatusConstant.DISABLE);
-        Integer discontinued = dishMapper.countByMap(map);
+        Integer discontinued = doctorMapper.countByMap(map);
 
-        return DishOverViewVO.builder()
+        return DoctorOverViewVO.builder()
                 .sold(sold)
                 .discontinued(discontinued)
                 .build();

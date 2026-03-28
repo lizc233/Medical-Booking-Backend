@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class DishPageQueryDTO implements Serializable {
+public class DoctorPageQueryDTO implements Serializable {
 
     private int page;
 
@@ -13,8 +13,8 @@ public class DishPageQueryDTO implements Serializable {
 
     private String name;
 
-    //分类id
-    private Integer categoryId;
+    //科室id
+    private Integer departmentId;
 
     //状态 0表示禁用 1表示启用
     private Integer status;

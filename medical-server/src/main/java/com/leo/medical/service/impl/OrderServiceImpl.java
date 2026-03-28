@@ -10,12 +10,12 @@ import com.leo.medical.context.BaseContext;
 import com.leo.medical.dto.*;
 import com.leo.medical.entity.*;
 import com.leo.medical.mapper.*;
-import com.sky.dto.*;
-import com.sky.entity.*;
+//import com.sky.dto.*;
+//import com.sky.entity.*;
 import com.leo.medical.exception.AddressBookBusinessException;
 import com.leo.medical.exception.OrderBusinessException;
 import com.leo.medical.exception.ShoppingCartBusinessException;
-import com.sky.mapper.*;
+//import com.sky.mapper.*;
 import com.leo.medical.result.PageResult;
 import com.leo.medical.service.OrderService;
 import com.leo.medical.utils.HttpClientUtil;
@@ -250,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
 //        根据id查询订单
         Orders orders = orderMapper.getById(id);
 
-//        查询该订单对应的菜品/套餐明细
+//        查询该订单对应的医生/套餐明细
         List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(id);
 
 //        将订单及其详情封装到OrderVo并返回
@@ -320,7 +320,7 @@ public class OrderServiceImpl implements OrderService {
         List<ShoppingCart> shoppingCartList = orderDetailList.stream().map(orderDetail -> {
             ShoppingCart shoppingCart = new ShoppingCart();
 
-//            将原订单详情里面的菜品信息重新复制到购物车对象中
+//            将原订单详情里面的医生信息重新复制到购物车对象中
             BeanUtils.copyProperties(orderDetail, shoppingCart, "id");
             shoppingCart.setUserId(userId);
             shoppingCart.setCreateTime(LocalDateTime.now());
@@ -343,7 +343,7 @@ public class OrderServiceImpl implements OrderService {
 
         Page<Orders> pageQuery = orderMapper.pageQuery(ordersPageQueryDTO);
 
-//        部分订单状态，需要额外返回订单菜品信息，将orders转化为orderVo
+//        部分订单状态，需要额外返回订单医生信息，将orders转化为orderVo
         List<OrderVO> orderVoList = getOrderVoList(pageQuery);
         return new PageResult(pageQuery.getTotal(), orderVoList);
     }
@@ -517,12 +517,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 部分订单状态，需要额外返回订单菜品信息，将orders转化为orderVo
+     * 部分订单状态，需要额外返回订单医生信息，将orders转化为orderVo
      * @param page
      * @return
      */
     private List<OrderVO> getOrderVoList(Page<Orders> page) {
-//        需要返回订单菜品信息，自定义OrderVo响应结果
+//        需要返回订单医生信息，自定义OrderVo响应结果
         ArrayList<OrderVO> orderVOArrayList = new ArrayList<>();
 
         List<Orders> ordersList = page.getResult();
@@ -531,8 +531,8 @@ public class OrderServiceImpl implements OrderService {
                 OrderVO orderVO = new OrderVO();
                 BeanUtils.copyProperties(orders, orderVO);
 
-                String orderDishStr = getOrderDishStr(orders);
-                orderVO.setOrderDishes(orderDishStr);
+                String orderDoctorStr = getOrderDoctorStr(orders);
+                orderVO.setOrderDoctores(orderDoctorStr);
                 orderVOArrayList.add(orderVO);
             });
         }
@@ -540,19 +540,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 根据订单id获取菜品信息字符串
+     * 根据订单id获取医生信息字符串
      * @param orders
      * @return
      */
-    private String getOrderDishStr(Orders orders) {
-//        查询订单菜品详情信息（订单中的菜品和数量）
+    private String getOrderDoctorStr(Orders orders) {
+//        查询订单医生详情信息（订单中的医生和数量）
         List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(orders.getId());
 
-//        将每一条订单菜品信息拼接为字符串（格式：宫保鸡丁*3；）
-        List<String> ordewrDishList = orderDetailList.stream().map(orderDetail -> orderDetail.getName() + "*" + orderDetail.getNumber() + ";").collect(Collectors.toList());
+//        将每一条订单医生信息拼接为字符串（格式：宫保鸡丁*3；）
+        List<String> ordewrDoctorList = orderDetailList.stream().map(orderDetail -> orderDetail.getName() + "*" + orderDetail.getNumber() + ";").collect(Collectors.toList());
 
-//        将该订单对应的所有菜品信息拼接在一起
-        return String.join("", ordewrDishList);
+//        将该订单对应的所有医生信息拼接在一起
+        return String.join("", ordewrDoctorList);
     }
 
     /**

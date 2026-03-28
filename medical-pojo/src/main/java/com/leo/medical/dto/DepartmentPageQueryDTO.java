@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class CategoryPageQueryDTO implements Serializable {
+public class DepartmentPageQueryDTO implements Serializable {
 
     //页码
     private int page;
@@ -13,10 +13,10 @@ public class CategoryPageQueryDTO implements Serializable {
     //每页记录数
     private int pageSize;
 
-    //分类名称
+    //科室名称
     private String name;
 
-    //分类类型 1菜品分类  2套餐分类
+    //科室类型 1医生科室  2套餐科室
     private Integer type;
 
 }

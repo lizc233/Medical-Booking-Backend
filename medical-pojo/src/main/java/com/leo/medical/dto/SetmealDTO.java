@@ -1,6 +1,6 @@
 package com.leo.medical.dto;
 
-import com.leo.medical.entity.SetmealDish;
+import com.leo.medical.entity.SetmealDoctor;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,8 +12,8 @@ public class SetmealDTO implements Serializable {
 
     private Long id;
 
-    //分类id
-    private Long categoryId;
+    //科室id
+    private Long departmentId;
 
     //套餐名称
     private String name;
@@ -30,7 +30,7 @@ public class SetmealDTO implements Serializable {
     //图片
     private String image;
 
-    //套餐菜品关系
-    private List<SetmealDish> setmealDishes = new ArrayList<>();
+    //套餐医生关系
+    private List<SetmealDoctor> setmealDoctores = new ArrayList<>();
 
 }

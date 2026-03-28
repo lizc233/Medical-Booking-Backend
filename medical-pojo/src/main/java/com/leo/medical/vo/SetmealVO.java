@@ -1,6 +1,6 @@
 package com.leo.medical.vo;
 
-import com.leo.medical.entity.SetmealDish;
+import com.leo.medical.entity.SetmealDoctor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +19,8 @@ public class SetmealVO implements Serializable {
 
     private Long id;
 
-    //分类id
-    private Long categoryId;
+    //科室id
+    private Long departmentId;
 
     //套餐名称
     private String name;
@@ -40,9 +40,9 @@ public class SetmealVO implements Serializable {
     //更新时间
     private LocalDateTime updateTime;
 
-    //分类名称
-    private String categoryName;
+    //科室名称
+    private String departmentName;
 
-    //套餐和菜品的关联关系
-    private List<SetmealDish> setmealDishes = new ArrayList<>();
+    //套餐和医生的关联关系
+    private List<SetmealDoctor> setmealDoctores = new ArrayList<>();
 }

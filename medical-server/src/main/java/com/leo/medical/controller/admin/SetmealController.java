@@ -34,9 +34,9 @@ public class SetmealController {
      */
     @PostMapping
     @ApiOperation("新增套餐")
-    @CacheEvict(cacheNames = "setmealCache",key = "#setmealDTO.categoryId")
+    @CacheEvict(cacheNames = "setmealCache",key = "#setmealDTO.departmentId")
     public Result save(@RequestBody SetmealDTO setmealDTO) {
-        setmealService.saveWithDish(setmealDTO);
+        setmealService.saveWithDoctor(setmealDTO);
         return Result.success();
     }
 
@@ -73,7 +73,7 @@ public class SetmealController {
     @GetMapping("/{id}")
     @ApiOperation("根据id查询套餐")
     public Result<SetmealVO> getById(@PathVariable Long id) {
-        SetmealVO setmealVO = setmealService.getByIdWithDish(id);
+        SetmealVO setmealVO = setmealService.getByIdWithDoctor(id);
         return Result.success(setmealVO);
     }
 

@@ -28,14 +28,14 @@ public class ShoppingCart implements Serializable {
     //用户id
     private Long userId;
 
-    //菜品id
-    private Long dishId;
+    //医生id
+    private Long doctorId;
 
     //套餐id
     private Long setmealId;
 
     //口味
-    private String dishFlavor;
+    private String doctorFlavor;
 
     //数量
     private Integer number;

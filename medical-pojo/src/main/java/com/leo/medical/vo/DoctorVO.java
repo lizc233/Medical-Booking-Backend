@@ -1,6 +1,6 @@
 package com.leo.medical.vo;
 
-import com.leo.medical.entity.DishFlavor;
+import com.leo.medical.entity.DoctorFlavor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,14 +15,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishVO implements Serializable {
+public class DoctorVO implements Serializable {
 
     private Long id;
-    //菜品名称
+    //医生名称
     private String name;
-    //菜品分类id
-    private Long categoryId;
-    //菜品价格
+    //医生科室id
+    private Long departmentId;
+    //医生价格
     private BigDecimal price;
     //图片
     private String image;
@@ -32,10 +32,10 @@ public class DishVO implements Serializable {
     private Integer status;
     //更新时间
     private LocalDateTime updateTime;
-    //分类名称
-    private String categoryName;
-    //菜品关联的口味
-    private List<DishFlavor> flavors = new ArrayList<>();
+    //科室名称
+    private String departmentName;
+    //医生关联的口味
+    private List<DoctorFlavor> flavors = new ArrayList<>();
 
     //private Integer copies;
 }

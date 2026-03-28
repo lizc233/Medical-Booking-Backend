@@ -9,25 +9,25 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 菜品
+ * 医生
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Dish implements Serializable {
+public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //菜品名称
+    //医生名称
     private String name;
 
-    //菜品分类id
-    private Long categoryId;
+    //医生科室id
+    private Long departmentId;
 
-    //菜品价格
+    //医生价格
     private BigDecimal price;
 
     //图片

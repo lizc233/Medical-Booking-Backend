@@ -4,7 +4,7 @@ import com.leo.medical.dto.SetmealDTO;
 import com.leo.medical.dto.SetmealPageQueryDTO;
 import com.leo.medical.entity.Setmeal;
 import com.leo.medical.result.PageResult;
-import com.leo.medical.vo.DishItemVO;
+import com.leo.medical.vo.DoctorItemVO;
 import com.leo.medical.vo.SetmealVO;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface SetmealService {
      * 新增套餐
      * @param setmealDTO
      */
-    void saveWithDish(SetmealDTO setmealDTO);
+    void saveWithDoctor(SetmealDTO setmealDTO);
 
     /**
      * 分页查询
@@ -34,7 +34,7 @@ public interface SetmealService {
      * @param id
      * @return
      */
-    SetmealVO getByIdWithDish(Long id);
+    SetmealVO getByIdWithDoctor(Long id);
 
     /**
      * 修改套餐
@@ -57,9 +57,9 @@ public interface SetmealService {
     List<Setmeal> list(Setmeal setmeal);
 
     /**
-     * 根据id查询菜品选项
+     * 根据id查询医生选项
      * @param id
      * @return
      */
-    List<DishItemVO> getDishItemById(Long id);
+    List<DoctorItemVO> getDoctorItemById(Long id);
 }

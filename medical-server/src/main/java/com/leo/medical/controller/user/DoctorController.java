@@ -1,10 +1,10 @@
 package com.leo.medical.controller.user;
 
 import com.leo.medical.constant.StatusConstant;
-import com.leo.medical.entity.Dish;
+import com.leo.medical.entity.Doctor;
 import com.leo.medical.result.Result;
-import com.leo.medical.service.DishService;
-import com.leo.medical.vo.DishVO;
+import com.leo.medical.service.DoctorService;
+import com.leo.medical.vo.DoctorVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,31 +14,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("userDishController")
-@RequestMapping("/user/dish")
+@RestController("userDoctorController")
+@RequestMapping("/user/doctor")
 @Slf4j
-@Api(tags = "C端-菜品浏览接口")
-public class DishController {
+@Api(tags = "C端-医生浏览接口")
+public class DoctorController {
     @Autowired
-    private DishService dishService;
+    private DoctorService doctorService;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     /**
-     * 根据分类id查询菜品
+     * 根据科室id查询医生
      *
-     * @param categoryId
+     * @param departmentId
      * @return
      */
     @GetMapping("/list")
-    @ApiOperation("根据分类id查询菜品")
-    public Result<List<DishVO>> list(Long categoryId) {
-//        构造redis中的key，规则：dish_分类Id
-        String key = "dish_" + categoryId;
+    @ApiOperation("根据科室id查询医生")
+    public Result<List<DoctorVO>> list(Long departmentId) {
+//        构造redis中的key，规则：doctor_科室Id
+        String key = "doctor_" + departmentId;
 
-//        查询redis中是否存在菜品数据
-        List<DishVO> list = (List<DishVO>) redisTemplate.opsForValue().get(key);
+//        查询redis中是否存在医生数据
+        List<DoctorVO> list = (List<DoctorVO>) redisTemplate.opsForValue().get(key);
         if (list != null && list.size() > 0) {
 //            如果存在，直接返回，无需查询数据库
             return Result.success(list);
@@ -46,11 +46,11 @@ public class DishController {
 
 
 //        如果不存在，查询数据库，将查询到的数据放入redis中
-        Dish dish = new Dish();
-        dish.setCategoryId(categoryId);
-        dish.setStatus(StatusConstant.ENABLE);//查询起售中的菜品
+        Doctor doctor = new Doctor();
+        doctor.setDepartmentId(departmentId);
+        doctor.setStatus(StatusConstant.ENABLE);//查询起售中的医生
 
-        list = dishService.listWithFlavor(dish);
+        list = doctorService.listWithFlavor(doctor);
 
 //        放入redis
         redisTemplate.opsForValue().set(key, list);

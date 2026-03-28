@@ -5,15 +5,15 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class CategoryDTO implements Serializable {
+public class DepartmentDTO implements Serializable {
 
     //主键
     private Long id;
 
-    //类型 1 菜品分类 2 套餐分类
+    //类型 1 医生科室 2 套餐科室
     private Integer type;
 
-    //分类名称
+    //科室名称
     private String name;
 
     //排序

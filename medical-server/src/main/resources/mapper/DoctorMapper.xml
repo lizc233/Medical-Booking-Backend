@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.leo.medical.mapper.DishMapper">
-<!--    修改菜品基本信息-->
+<mapper namespace="com.leo.medical.mapper.DoctorMapper">
+<!--    修改医生基本信息-->
     <update id="update">
-        update dish
+        update doctor
         <set>
             <if test="name != null">name = #{name},</if>
-            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
             <if test="price != null">price = #{price},</if>
             <if test="image != null">image = #{image},</if>
             <if test="description != null">description = #{description},</if>
@@ -17,29 +17,29 @@
         </set>
             where id =#{id}
     </update>
-    <!--    删除菜品表中的菜品数据-->
+    <!--    删除医生表中的医生数据-->
     <delete id="deleteById">
         delete
-        from dish
+        from doctor
         where id=#{id};
     </delete>
-    <!--    根据分类id查询菜品数量-->
-    <select id="countByCategoryId" resultType="java.lang.Integer">
+    <!--    根据科室id查询医生数量-->
+    <select id="countByDepartmentId" resultType="java.lang.Integer">
         select count(id)
-        from dish
-        where category_id = #{categoryId}
+        from doctor
+        where department_id = #{departmentId}
     </select>
 
-<!--    菜品分页查询-->
-    <select id="pageQuery" resultType="com.leo.medical.vo.DishVO">
-        select d.*,c.name as categoryName
-        from dish d left join category c on d.category_id = c.id
+<!--    医生分页查询-->
+    <select id="pageQuery" resultType="com.leo.medical.vo.DoctorVO">
+        select d.*,c.name as departmentName
+        from doctor d left join department c on d.department_id = c.id
         <where>
             <if test="name!=null">
                 and d.name like concat('%',#{name},'%')
             </if>
-            <if test="categoryId!=null">
-                and d.categoryId like concat('%',#{categoryId},'%')
+            <if test="departmentId!=null">
+                and d.departmentId like concat('%',#{departmentId},'%')
             </if>
             <if test="status!=null">
                 and d.status like concat('%',#{status},'%')
@@ -48,22 +48,22 @@
         order by d.create_time desc
     </select>
 
-<!--    获取菜品-->
-    <select id="getById" resultType="com.leo.medical.entity.Dish">
+<!--    获取医生-->
+    <select id="getById" resultType="com.leo.medical.entity.Doctor">
         select *
-        from dish where id=#{id};
+        from doctor where id=#{id};
     </select>
 
-<!--    根据分类id查询菜品-->
-    <select id="list" resultType="com.leo.medical.entity.Dish">
+<!--    根据科室id查询医生-->
+    <select id="list" resultType="com.leo.medical.entity.Doctor">
         select *
-        from dish
+        from doctor
         <where>
             <if test="name!=null">
                 and name like concat('%',#{name},'%')
             </if>
-            <if test="categoryId!=null">
-                and category_id=#{categoryId}
+            <if test="departmentId!=null">
+                and department_id=#{departmentId}
             </if>
             <if test="status!=null">
                 and status=#{status}
@@ -72,33 +72,33 @@
         order by create_time desc
     </select>
 
-<!--    根据套餐id查询菜品-->
-    <select id="getBySetmealId" resultType="com.leo.medical.entity.Dish">
+<!--    根据套餐id查询医生-->
+    <select id="getBySetmealId" resultType="com.leo.medical.entity.Doctor">
         select d.*
-        from dish d,
-             setmeal_dish sd
-        where d.id = sd.dish_id
+        from doctor d,
+             setmeal_doctor sd
+        where d.id = sd.doctor_id
           and sd.setmeal_id = #{id}
     </select>
 
-<!--    根据条件统计菜品数量-->
+<!--    根据条件统计医生数量-->
     <select id="countByMap" resultType="java.lang.Integer">
-        select count(id) from dish
+        select count(id) from doctor
         <where>
             <if test="status != null">
                 and status = #{status}
             </if>
-            <if test="categoryId != null">
-                and category_id = #{categoryId}
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
             </if>
         </where>
     </select>
 
-    <!--    添加菜品-->
+    <!--    添加医生-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into dish (name, category_id, price, image, description, create_time, update_time, create_user,
+        insert into doctor (name, department_id, price, image, description, create_time, update_time, create_user,
                           update_user, status)
-        values (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime}, #{createUser},
+        values (#{name}, #{departmentId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime}, #{createUser},
                 #{updateUser}, #{status})
     </insert>
 </mapper>

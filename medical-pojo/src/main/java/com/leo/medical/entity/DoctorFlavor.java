@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 菜品口味
+ * 医生口味
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishFlavor implements Serializable {
+public class DoctorFlavor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    //菜品id
-    private Long dishId;
+    //医生id
+    private Long doctorId;
 
     //口味名称
     private String name;

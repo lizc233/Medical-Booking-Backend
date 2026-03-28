@@ -1,7 +1,7 @@
 package com.leo.medical.service;
 
 import com.leo.medical.vo.BusinessDataVO;
-import com.leo.medical.vo.DishOverViewVO;
+import com.leo.medical.vo.DoctorOverViewVO;
 import com.leo.medical.vo.OrderOverViewVO;
 import com.leo.medical.vo.SetmealOverViewVO;
 
@@ -23,10 +23,10 @@ public interface WorkspaceService {
     OrderOverViewVO getOrderOverView();
 
     /**
-     * 查询菜品总览
+     * 查询医生总览
      * @return
      */
-    DishOverViewVO getDishOverView();
+    DoctorOverViewVO getDoctorOverView();
 
     /**
      * 查询套餐总览

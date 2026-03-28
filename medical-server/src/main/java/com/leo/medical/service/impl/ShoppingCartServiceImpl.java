@@ -2,10 +2,10 @@ package com.leo.medical.service.impl;
 
 import com.leo.medical.context.BaseContext;
 import com.leo.medical.dto.ShoppingCartDTO;
-import com.leo.medical.entity.Dish;
+import com.leo.medical.entity.Doctor;
 import com.leo.medical.entity.Setmeal;
 import com.leo.medical.entity.ShoppingCart;
-import com.leo.medical.mapper.DishMapper;
+import com.leo.medical.mapper.DoctorMapper;
 import com.leo.medical.mapper.SetmealMapper;
 import com.leo.medical.mapper.ShoppingCartMapper;
 import com.leo.medical.service.ShoppingCartService;
@@ -23,7 +23,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private ShoppingCartMapper shoppingCartMapper;
 
     @Autowired
-    private DishMapper dishMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
     private SetmealMapper setmealMapper;
@@ -50,13 +50,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartMapper.updateNumberById(shoppingCart);
         } else {
 //            如果不存在，插入数据
-            Long dishId = shoppingCartDTO.getDishId();
-            if (dishId != null) {
-//                添加到购物车的是菜品
-                Dish dish = dishMapper.getById(dishId);
-                shoppingCart.setName(dish.getName());
-                shoppingCart.setImage(dish.getImage());
-                shoppingCart.setAmount(dish.getPrice());
+            Long doctorId = shoppingCartDTO.getDoctorId();
+            if (doctorId != null) {
+//                添加到购物车的是医生
+                Doctor doctor = doctorMapper.getById(doctorId);
+                shoppingCart.setName(doctor.getName());
+                shoppingCart.setImage(doctor.getImage());
+                shoppingCart.setAmount(doctor.getPrice());
             } else {
 //                添加到购物车的是套餐
                 Setmeal setmeal = setmealMapper.getById(shoppingCartDTO.getSetmealId());

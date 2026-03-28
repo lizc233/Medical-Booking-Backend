@@ -11,22 +11,22 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category implements Serializable {
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
+    //类型: 1医生科室 2套餐科室
     private Integer type;
 
-    //分类名称
+    //科室名称
     private String name;
 
     //顺序
     private Integer sort;
 
-    //分类状态 0标识禁用 1表示启用
+    //科室状态 0标识禁用 1表示启用
     private Integer status;
 
     //创建时间

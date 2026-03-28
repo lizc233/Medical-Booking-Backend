@@ -3,47 +3,47 @@ package com.leo.medical.mapper;
 import com.github.pagehelper.Page;
 import com.leo.medical.annotation.AutoFill;
 import com.leo.medical.enumeration.OperationType;
-import com.leo.medical.dto.CategoryPageQueryDTO;
-import com.leo.medical.entity.Category;
+import com.leo.medical.dto.DepartmentPageQueryDTO;
+import com.leo.medical.entity.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
-public interface CategoryMapper {
+public interface DepartmentMapper {
 
     /**
      * 插入数据
-     * @param category
+     * @param department
      */
     @AutoFill(OperationType.INSERT)
-    void insert(Category category);
+    void insert(Department department);
 
     /**
      * 分页查询
-     * @param categoryPageQueryDTO
+     * @param departmentPageQueryDTO
      * @return
      */
-    Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+    Page<Department> pageQuery(DepartmentPageQueryDTO departmentPageQueryDTO);
 
     /**
-     * 根据id删除分类
+     * 根据id删除科室
      * @param id
      */
     void deleteById(@Param("id") Long id);
 
     /**
-     * 根据id修改分类
-     * @param category
+     * 根据id修改科室
+     * @param department
      */
     @AutoFill(OperationType.UPDATE)
-    void update(Category category);
+    void update(Department department);
 
     /**
-     * 根据类型查询分类
+     * 根据类型查询科室
      * @param type
      * @return
      */
-    List<Category> list(Integer type);
+    List<Department> list(Integer type);
 }

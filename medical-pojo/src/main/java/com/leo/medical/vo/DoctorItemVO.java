@@ -11,17 +11,17 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishItemVO implements Serializable {
+public class DoctorItemVO implements Serializable {
 
-    //菜品名称
+    //医生名称
     private String name;
 
     //份数
     private Integer copies;
 
-    //菜品图片
+    //医生图片
     private String image;
 
-    //菜品描述
+    //医生描述
     private String description;
 }

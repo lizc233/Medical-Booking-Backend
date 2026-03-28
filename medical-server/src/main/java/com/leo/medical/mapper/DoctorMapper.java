@@ -2,11 +2,10 @@ package com.leo.medical.mapper;
 
 import com.github.pagehelper.Page;
 import com.leo.medical.annotation.AutoFill;
-import com.leo.medical.dto.SetmealPageQueryDTO;
-import com.leo.medical.entity.Setmeal;
+import com.leo.medical.dto.DoctorPageQueryDTO;
+import com.leo.medical.entity.Doctor;
 import com.leo.medical.enumeration.OperationType;
-import com.leo.medical.vo.DoctorItemVO;
-import com.leo.medical.vo.SetmealVO;
+import com.leo.medical.vo.DoctorVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,65 +13,65 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface SetmealMapper {
+public interface DoctorMapper {
 
     /**
-     * 根据科室id查询套餐的数量
+     * 根据科室id查询医生数量
      * @param departmentId
      * @return
      */
     Integer countByDepartmentId(@Param("departmentId") Long departmentId);
 
     /**
-     * 向套餐表插入数据
-     * @param setmeal
+     * 添加医生
+     * @param doctor
      */
     @AutoFill(OperationType.INSERT)
-    void insert(Setmeal setmeal);
+    void insert(Doctor doctor);
 
     /**
-     * 分页查询
-     * @param setmealPageQueryDTO
+     * 医生分页查询
+     * @param doctorPageQueryDTO
      * @return
      */
-    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    Page<DoctorVO> pageQuery(DoctorPageQueryDTO doctorPageQueryDTO);
 
     /**
-     * 根据id查询数据
+     * 获取医生
      * @param id
      * @return
      */
-    Setmeal getById(Long id);
+    Doctor getById(Long id);
 
     /**
-     * 根据id删除数据
+     * 删除医生表中的医生数据
      * @param id
      */
     void deleteById(Long id);
 
     /**
-     * 修改套餐表
-     * @param setmeal
+     * 修改医生基本信息
+     * @param doctor
      */
     @AutoFill(OperationType.UPDATE)
-    void update(Setmeal setmeal);
+    void update(Doctor doctor);
 
     /**
-     * 条件查询
-     * @param setmeal
+     * 根据科室id查询医生
+     * @param doctor
      * @return
      */
-    List<Setmeal> list(Setmeal setmeal);
+    List<Doctor> list(Doctor doctor);
 
     /**
-     * 根据id查询医生选项
+     * 根据套餐id查询医生
      * @param id
      * @return
      */
-    List<DoctorItemVO> getDoctorItemBySetmealId(Long id);
+    List<Doctor> getBySetmealId(Long id);
 
     /**
-     * 根据条件统计套餐数量
+     * 根据条件统计医生数量
      * @param map
      * @return
      */

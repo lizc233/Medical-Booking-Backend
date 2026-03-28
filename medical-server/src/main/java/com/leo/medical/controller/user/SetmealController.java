@@ -4,7 +4,7 @@ import com.leo.medical.constant.StatusConstant;
 import com.leo.medical.entity.Setmeal;
 import com.leo.medical.result.Result;
 import com.leo.medical.service.SetmealService;
-import com.leo.medical.vo.DishItemVO;
+import com.leo.medical.vo.DoctorItemVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +25,15 @@ public class SetmealController {
     /**
      * 条件查询
      *
-     * @param categoryId
+     * @param departmentId
      * @return
      */
     @GetMapping("/list")
-    @ApiOperation("根据分类id查询套餐")
-    @Cacheable(cacheNames = "setmealCache",key = "#categoryId")
-    public Result<List<Setmeal>> list(Long categoryId) {
+    @ApiOperation("根据科室id查询套餐")
+    @Cacheable(cacheNames = "setmealCache",key = "#departmentId")
+    public Result<List<Setmeal>> list(Long departmentId) {
         Setmeal setmeal = new Setmeal();
-        setmeal.setCategoryId(categoryId);
+        setmeal.setDepartmentId(departmentId);
         setmeal.setStatus(StatusConstant.ENABLE);
 
         List<Setmeal> list = setmealService.list(setmeal);
@@ -41,15 +41,15 @@ public class SetmealController {
     }
 
     /**
-     * 根据套餐id查询包含的菜品列表
+     * 根据套餐id查询包含的医生列表
      *
      * @param id
      * @return
      */
-    @GetMapping("/dish/{id}")
-    @ApiOperation("根据套餐id查询包含的菜品列表")
-    public Result<List<DishItemVO>> dishList(@PathVariable("id") Long id) {
-        List<DishItemVO> list = setmealService.getDishItemById(id);
+    @GetMapping("/doctor/{id}")
+    @ApiOperation("根据套餐id查询包含的医生列表")
+    public Result<List<DoctorItemVO>> doctorList(@PathVariable("id") Long id) {
+        List<DoctorItemVO> list = setmealService.getDoctorItemById(id);
         return Result.success(list);
     }
 }
